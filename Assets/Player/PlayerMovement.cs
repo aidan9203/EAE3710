@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+	public float speed;
+
 	Vector3 gravity = Vector3.down;
 
 	Transform tf;
@@ -44,21 +46,11 @@ public class PlayerMovement : MonoBehaviour
 		tf.RotateAround(tf.position, tf.up, rotation);
 
 		//Apply motion relative to gravity
-		float vel_x = 3 * (-Mathf.Abs(gravity.y) * move_horizontal - Mathf.Abs(gravity.z) * move_horizontal);
-		float vel_y = 3 * (-gravity.x * move_horizontal - gravity.z * move_vertical);
-		float vel_z = 3 * (gravity.y * move_vertical - Mathf.Abs(gravity.x) * move_vertical);
+		float vel_x = speed * (-Mathf.Abs(gravity.y) * move_horizontal - Mathf.Abs(gravity.z) * move_horizontal) + (Mathf.Abs(rb.velocity.x) + 9.81f * Time.deltaTime) * gravity.x;
+		float vel_y = speed * (-gravity.x * move_horizontal - gravity.z * move_vertical) + (Mathf.Abs(rb.velocity.y) + 9.81f * Time.deltaTime) * gravity.y;
+		float vel_z = speed * (gravity.y * move_vertical - Mathf.Abs(gravity.x) * move_vertical) + (Mathf.Abs(rb.velocity.z) + 9.81f * Time.deltaTime) * gravity.z;
 
-		rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(vel_x, vel_y, vel_z), 0.1f);
-
-		//Apply smooth motion
-		/*
-		float angle = tf.eulerAngles.y + 180.0f * rotate * Time.deltaTime;
-		tf.eulerAngles = new Vector3(tf.eulerAngles.x, angle, tf.eulerAngles.z);
-		float angle_rad = Mathf.Deg2Rad * angle;
-		float vel_x = -3 * (Mathf.Cos(angle_rad) * move_horizontal + Mathf.Sin(angle_rad) * move_vertical);
-		float vel_z = 3 * (Mathf.Sin(angle_rad) * move_horizontal - Mathf.Cos(angle_rad) * move_vertical);
-		rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(vel_x, rb.velocity.y, vel_z), 0.1f);
-		*/
+		rb.velocity = new Vector3(vel_x, vel_y, vel_z);
 	}
 
 
