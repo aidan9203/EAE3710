@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5352363405627668775
 Transform:
@@ -118,7 +118,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3023355303173549129
 Transform:
@@ -197,7 +197,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5263243418747738459
 Transform:
@@ -284,10 +284,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5263243418747738459}
     m_Modifications:
+    - target: {fileID: 3768472441470801086, guid: 04e45f13da5cb7843ba92dc1ae88c663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4350571619212295145, guid: 04e45f13da5cb7843ba92dc1ae88c663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4686161371842052743, guid: 04e45f13da5cb7843ba92dc1ae88c663,
         type: 3}
       propertyPath: m_Name
       value: Torch (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686161371842052743, guid: 04e45f13da5cb7843ba92dc1ae88c663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8598443886825402516, guid: 04e45f13da5cb7843ba92dc1ae88c663,
         type: 3}
@@ -365,10 +380,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5263243418747738459}
     m_Modifications:
+    - target: {fileID: 3768472441470801086, guid: 04e45f13da5cb7843ba92dc1ae88c663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4350571619212295145, guid: 04e45f13da5cb7843ba92dc1ae88c663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4686161371842052743, guid: 04e45f13da5cb7843ba92dc1ae88c663,
         type: 3}
       propertyPath: m_Name
       value: Torch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686161371842052743, guid: 04e45f13da5cb7843ba92dc1ae88c663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8598443886825402516, guid: 04e45f13da5cb7843ba92dc1ae88c663,
         type: 3}
