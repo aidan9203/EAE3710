@@ -24,7 +24,7 @@ public class GravityChange : MonoBehaviour
     {
         if (collision.collider.tag == "Player")
         {
-            collision.collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            collision.collider.transform.parent.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
         }
     }
 }
