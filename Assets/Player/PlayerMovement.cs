@@ -15,11 +15,15 @@ public class PlayerMovement : MonoBehaviour
 	float rotation_d = 0;
 	float rotation_offset = 0;
 
-    // Start is called before the first frame update
-    void Start()
+	Vector3 normal;
+
+	// Start is called before the first frame update
+	void Start()
     {
 		tf = GetComponent<Transform>();
 		rb = GetComponent<Rigidbody>();
+		rb.centerOfMass = new Vector3(0, -0.5f, 0);
+		normal = tf.up;
     }
 
     // Update is called once per frame
@@ -44,14 +48,16 @@ public class PlayerMovement : MonoBehaviour
 		float move_vertical = input_vertical * Mathf.Cos(Mathf.Deg2Rad * (rotation + rotation_offset)) - input_horizontal * Mathf.Sin(Mathf.Deg2Rad * (rotation + rotation_offset));
 
 		//Orient the player with gravity
-		tf.up = Vector3.Lerp(tf.up, -gravity, 0.05f);
+		RaycastHit ground;
+		if (Physics.Raycast(tf.position, gravity, out ground, 2.0f, ~LayerMask.GetMask("Ignore Raycast"))) { normal = ground.normal; }
+		tf.up = Vector3.Lerp(tf.up, normal, 0.02f);
 		rotation_d = Vector2.Lerp(new Vector2(rotation_d, 0), new Vector2(rotation_offset, 0), 0.05f).x;
 		tf.RotateAround(tf.position, tf.up, rotation + rotation_d);
 
-		//Apply motion relative to gravity
-		float vel_x = speed * (-Mathf.Abs(gravity.y) * move_horizontal - Mathf.Abs(gravity.z) * move_horizontal) + (Mathf.Abs(rb.velocity.x) + 9.81f * Time.deltaTime) * gravity.x;
-		float vel_y = speed * (-gravity.x * move_horizontal - gravity.z * move_vertical) + (Mathf.Abs(rb.velocity.y) + 9.81f * Time.deltaTime) * gravity.y;
-		float vel_z = speed * (gravity.y * move_vertical - Mathf.Abs(gravity.x) * move_vertical) + (Mathf.Abs(rb.velocity.z) + 9.81f * Time.deltaTime) * gravity.z;
+		//Apply motion relative to orientation/gravity
+		float vel_x = speed * (-Mathf.Abs(tf.up.y) * move_horizontal - Mathf.Abs(tf.up.z) * move_horizontal) + (Mathf.Abs(rb.velocity.x) + 9.81f * Time.deltaTime) * gravity.x;
+		float vel_y = speed * (tf.up.x * move_horizontal + tf.up.z * move_vertical) + (Mathf.Abs(rb.velocity.y) + 9.81f * Time.deltaTime) * gravity.y;
+		float vel_z = speed * (-tf.up.y * move_vertical - Mathf.Abs(tf.up.x) * move_vertical) + (Mathf.Abs(rb.velocity.z) + 9.81f * Time.deltaTime) * gravity.z;
 
 		rb.velocity = new Vector3(vel_x, vel_y, vel_z);
 	}
@@ -78,5 +84,6 @@ public class PlayerMovement : MonoBehaviour
 		if (gravity.x != 0 && g.y > 0) { rotation_offset += 180; }
 		if (gravity.y > 0 && g.x != 0) { rotation_offset -= 180; }
 		gravity = g;
+		normal = -g;
 	}
 }
