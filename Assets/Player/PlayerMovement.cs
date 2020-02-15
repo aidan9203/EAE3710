@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 	float rotation_d = 0;
 	float rotation_offset = 0;
 
-	Vector3 normal;
+	Vector3 normal = Vector3.up;
 
 	// Start is called before the first frame update
 	void Start()
@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
 		tf = GetComponent<Transform>();
 		rb = GetComponent<Rigidbody>();
 		rb.centerOfMass = new Vector3(0, -0.5f, 0);
-		normal = tf.up;
     }
 
     // Update is called once per frame
@@ -48,9 +47,20 @@ public class PlayerMovement : MonoBehaviour
 		float move_vertical = input_vertical * Mathf.Cos(Mathf.Deg2Rad * (rotation + rotation_offset)) - input_horizontal * Mathf.Sin(Mathf.Deg2Rad * (rotation + rotation_offset));
 
 		//Orient the player with gravity
-		RaycastHit ground;
-		if (Physics.Raycast(tf.position, gravity, out ground, 2.0f, ~LayerMask.GetMask("Ignore Raycast"))) { normal = ground.normal; }
-		tf.up = Vector3.Lerp(tf.up, normal, 0.02f);
+		RaycastHit h0, h1, h2, h3;
+		Physics.Raycast(tf.position + new Vector3(0.75f, -0.5f, 0.35f), gravity, out h0, 1.0f, ~LayerMask.GetMask("Ignore Raycast"));
+		Physics.Raycast(tf.position + new Vector3(0.75f, -0.5f, -0.35f), gravity, out h1, 1.0f, ~LayerMask.GetMask("Ignore Raycast"));
+		Physics.Raycast(tf.position + new Vector3(-0.75f, -0.5f, 0.35f), gravity, out h2, 1.0f, ~LayerMask.GetMask("Ignore Raycast"));
+		Physics.Raycast(tf.position + new Vector3(-0.75f, -0.5f, -0.35f), gravity, out h3, 1.0f, ~LayerMask.GetMask("Ignore Raycast"));
+		int hits = (h0.collider != null ? 1 : 0) + (h1.collider != null ? 1 : 0) + (h2.collider != null ? 1 : 0) + (h3.collider != null ? 1 : 0);
+		normal += (h0.collider != null ? h0.normal : Vector3.zero);
+		normal += (h1.collider != null ? h1.normal : Vector3.zero);
+		normal += (h2.collider != null ? h2.normal : Vector3.zero);
+		normal += (h3.collider != null ? h3.normal : Vector3.zero);
+		if (hits > 0) { normal /= hits; }
+		else { normal = -gravity; }
+
+		tf.up = Vector3.Lerp(tf.up, normal, 0.01f);
 		rotation_d = Vector2.Lerp(new Vector2(rotation_d, 0), new Vector2(rotation_offset, 0), 0.05f).x;
 		tf.RotateAround(tf.position, tf.up, rotation + rotation_d);
 
@@ -69,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
 	public void ChangeGravity(Vector3 g)
 	{
 		g.Normalize();
+		if (gravity.Equals(g)) { return; }
 		if (gravity.x > 0 && g.z > 0) { rotation_offset -= 90; }
 		if (gravity.z > 0 && g.x > 0) { rotation_offset += 90; }
 

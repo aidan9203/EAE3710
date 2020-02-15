@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7993453075369597660}
   - component: {fileID: 5362419411147393877}
   - component: {fileID: 8912053331214063723}
+  - component: {fileID: 6625408041393985955}
   m_Layer: 2
   m_Name: treads
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6625408041393985955
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145608655073901134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -1716445980658504445, guid: c1c26bc811aec6742a5a7cf37468e801, type: 3}
 --- !u!1 &2372363250849264005
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,10 +107,10 @@ GameObject:
   - component: {fileID: 8267636410292140613}
   - component: {fileID: 2372363250849264007}
   - component: {fileID: 2372363250849264006}
-  - component: {fileID: 2372363250849264000}
+  - component: {fileID: 5506973248573209749}
   m_Layer: 2
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
---- !u!65 &2372363250849264000
+--- !u!65 &5506973248573209749
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +218,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 1.2, z: 0.9}
+  m_Size: {x: 1, y: 1.0999999, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7860078614584702263
 GameObject:
