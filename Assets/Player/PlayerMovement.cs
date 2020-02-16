@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
 
 	public Transform[] corners = new Transform[4];
 
+	public GameObject drill;
+	public bool drill_enable;
+	Vector3 drill_speed = Vector3.zero;
+
 	Vector3 gravity = Vector3.down;
 
 	Transform tf;
@@ -27,11 +31,29 @@ public class PlayerMovement : MonoBehaviour
 		tf = GetComponent<Transform>();
 		rb = GetComponent<Rigidbody>();
 		rb.centerOfMass = new Vector3(0, -0.5f, 0);
+		drill.SetActive(drill_enable);
     }
 
     // Update is called once per frame
     void Update()
     {
+		//Drilling
+		drill.SetActive(drill_enable);
+		if (drill_enable)
+		{
+			drill.transform.localEulerAngles += drill_speed * Time.deltaTime;
+			if (Input.GetAxisRaw("Attack") > 0)
+			{
+				drill_speed = Vector3.Lerp(drill_speed, new Vector3(0, 0, 300), 0.1f);
+				drill.tag = "Drill";
+			}
+			else
+			{
+				drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 0.1f);
+				drill.tag = "Untagged";
+			}
+		}
+
 		float input_vertical = 0;
 		float input_horizontal = 0;
 		float input_rotate = 0;
@@ -39,8 +61,8 @@ public class PlayerMovement : MonoBehaviour
 		//Basic motion
 		if (Input.GetKey(KeyCode.W)) { input_vertical += 1; }
 		if (Input.GetKey(KeyCode.S)) { input_vertical -= 1; }
-		if (Input.GetKey(KeyCode.D)) { input_horizontal += 1; }
-		if (Input.GetKey(KeyCode.A)) { input_horizontal -= 1; }
+		//if (Input.GetKey(KeyCode.D)) { input_horizontal += 1; }
+		//if (Input.GetKey(KeyCode.A)) { input_horizontal -= 1; }
 
 		if (Input.GetKey(KeyCode.E)) { input_rotate += 1; }
 		if (Input.GetKey(KeyCode.Q)) { input_rotate -= 1; }
@@ -105,5 +127,21 @@ public class PlayerMovement : MonoBehaviour
 		gravity = g;
 		normal = -g;
 		gravity_change = true;
+	}
+
+	public Vector3 GetGravity()
+	{
+		return gravity;
+	}
+
+
+	public void OnCollisionEnter(Collision collision)
+	{
+		//Pick up the drill
+		if (collision.gameObject.tag == "Drill")
+		{
+			drill_enable = true;
+			GameObject.Destroy(collision.gameObject);
+		}
 	}
 }

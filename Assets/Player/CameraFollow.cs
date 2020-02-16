@@ -7,7 +7,6 @@ public class CameraFollow : MonoBehaviour
 	public GameObject target;
 
 	public float speed;
-	public float rotation_speed;
 	public float distance;
 	public bool loop;
 
@@ -49,6 +48,15 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//Make sure the player is always right side up
+		Vector3 target_gravity = target.GetComponent<PlayerMovement>().GetGravity();
+		float rot_offset = 0;
+		if (target_gravity.y > 0) { rot_offset = 180; }
+		else if (target_gravity.x > 0) { rot_offset = (target.transform.position.z < transform.position.z ? -90 : 90); }
+		else if (target_gravity.x < 0) { rot_offset = (target.transform.position.z < transform.position.z ? 90 : -90); }
+		else if (target_gravity.z > 0) { rot_offset = (target.transform.position.x < transform.position.x ? 90 : -90); }
+		else if (target_gravity.z < 0) { rot_offset = (target.transform.position.x < transform.position.x ? -90 : 90); }
+
 		//Take the average of last two positions to help smooth camera
 		position_prev = position_next;
 		position_next = Vector3.Lerp(tf.position, FindPoint(), speed);
@@ -63,8 +71,8 @@ public class CameraFollow : MonoBehaviour
 		float dir_vertical = Mathf.Atan2(target_distance_vertical, target_distance_horizontal) * Mathf.Rad2Deg;
 		
 		//Apply rotation to camera
-		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.Euler(dir_vertical, dir_horizontal, 0), rotation_speed);
-    }
+		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.Euler(dir_vertical, dir_horizontal, rot_offset), speed);
+	}
 
 
 

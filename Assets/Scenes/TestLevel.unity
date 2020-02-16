@@ -1362,6 +1362,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2372363250849264006, guid: 0eaef74ce2aac9e4188b5e3d528d9adc,
+        type: 3}
+      propertyPath: drill_enable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475793531318002129, guid: 0eaef74ce2aac9e4188b5e3d528d9adc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779833636481745196, guid: 0eaef74ce2aac9e4188b5e3d528d9adc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172247353170257300, guid: 0eaef74ce2aac9e4188b5e3d528d9adc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434536053321025865, guid: 0eaef74ce2aac9e4188b5e3d528d9adc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7515393995835852830, guid: 0eaef74ce2aac9e4188b5e3d528d9adc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1401,6 +1426,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277219750487805636, guid: 0eaef74ce2aac9e4188b5e3d528d9adc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eaef74ce2aac9e4188b5e3d528d9adc, type: 3}

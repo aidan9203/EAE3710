@@ -26,5 +26,9 @@ public class GravityChange : MonoBehaviour
         {
             collision.collider.transform.parent.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
         }
+        if (collision.collider.tag == "Breakable")
+        {
+            collision.gameObject.GetComponent<WallBreakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+        }
     }
 }
