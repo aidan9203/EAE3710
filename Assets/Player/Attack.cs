@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    // What is the angle behind the enemy you can be for a backstab to work?
     [Range(0, 1)]
-    public float backstabSensitivity = 0.5f;
-    public float backstabDistance = 1.0f;
-    // Update is called once per frame
-    void Update()
-    {
-        // Testing for backstab. If we're going to have more weapons,
-        // we can include some additional checks in here for those weapons
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            RaycastHit hit;
-            // NOTE: This is currently set to backwards, because right now the player model is inverted in relation to the parent transform
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, backstabDistance)) {
-                GameObject hitObject = hit.collider.gameObject;
-                if(hitObject.CompareTag("Enemy")) {
-                    // Check to see if behind the enemy
-                    Transform enemyTransform = hitObject.GetComponent<Transform>();
+    public float backstabSensitivity = 0.9f;
+    private GameObject currentEnemy = null;
 
-                    if (Vector3.Dot(enemyTransform.forward.normalized, -(transform.forward).normalized) > backstabSensitivity) {
-                        //  Play animation here
-                        Destroy(hitObject);
-                    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.CompareTag("Enemy")) {
+            currentEnemy = other.gameObject;
+            currentEnemy.GetComponent<SentryController>().ChangeSkullVisiblity(true);
+        }
+    }
+
+    private void OnTriggerStay(Collider other) {
+        if(other.gameObject.CompareTag("Enemy")) {
+            // Check to see if behind the enemy
+            Transform enemyTransform = other.GetComponent<Transform>();
+            if(Input.GetKeyDown(KeyCode.Space)) {
+                if (Vector3.Dot(enemyTransform.forward.normalized, -(transform.forward).normalized) > backstabSensitivity) {
+                    //  Play animation here
+                    Destroy(other.gameObject);
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if(other.gameObject == currentEnemy) {
+            currentEnemy.GetComponent<SentryController>().ChangeSkullVisiblity(false);
         }
     }
 }
