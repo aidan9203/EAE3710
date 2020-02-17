@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Breakable
   - Drill
+  - Enemy
   layers:
   - Default
   - TransparentFX
