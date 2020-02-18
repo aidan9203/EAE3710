@@ -12,7 +12,10 @@ public class Attack : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Enemy")) {
             currentEnemy = other.gameObject;
-            currentEnemy.GetComponent<SentryController>().ChangeSkullVisiblity(true);
+            if(IsBehindEnemy(currentEnemy.GetComponent<Transform>()))
+            {
+                currentEnemy.GetComponent<SentryController>().ChangeSkullVisiblity(true);
+            }
         }
     }
 
@@ -21,7 +24,7 @@ public class Attack : MonoBehaviour
             // Check to see if behind the enemy
             Transform enemyTransform = other.GetComponent<Transform>();
             if(Input.GetKeyDown(KeyCode.Space)) {
-                if (Vector3.Dot(enemyTransform.forward.normalized, -(transform.forward).normalized) > backstabSensitivity) {
+                if (IsBehindEnemy(enemyTransform)) {
                     //  Play animation here
                     Destroy(other.gameObject);
                 }
@@ -33,5 +36,16 @@ public class Attack : MonoBehaviour
         if(other.gameObject == currentEnemy) {
             currentEnemy.GetComponent<SentryController>().ChangeSkullVisiblity(false);
         }
+    }
+
+    private bool IsBehindEnemy(Transform enemyTransform)
+    {
+        if (Vector3.Dot(enemyTransform.forward.normalized, -(transform.forward).normalized) > backstabSensitivity)
+        {
+            //  Play animation here
+            return true;
+        }
+
+        return false;
     }
 }
