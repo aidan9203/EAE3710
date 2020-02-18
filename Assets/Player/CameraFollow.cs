@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
 	public float speed;
 	public float distance;
 	public bool loop;
+	public float reverse_distance;
 
 	Transform tf;
 
@@ -17,6 +18,8 @@ public class CameraFollow : MonoBehaviour
 	int previous = 0;
 	int next = 1;
 	bool reversed = false;
+	bool queue_reversal = false;
+	Vector3 pos_reversed;
 
 	Vector3 position_prev;
 	Vector3 position_next;
@@ -216,11 +219,38 @@ public class CameraFollow : MonoBehaviour
 	{
 		Vector3 dir_player = -target.GetComponent<Transform>().forward;
 		Vector3 dir_normal = Vector3.Normalize(waypoints[next] - waypoints[previous]) - dir_player;
-		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous] - waypoints[next]) - dir_player;
+		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous] - waypoints[next]) - dir_player;		
 
-		if (Mathf.Abs(dir_reversed.magnitude) < Mathf.Abs(dir_normal.magnitude))
+		if (queue_reversal)
 		{
-			Reverse();
+			Vector3 player_diff = target.transform.position - pos_reversed;
+			Vector3 dir_diff = dir_player - Vector3.Normalize(player_diff);
+
+			if (Mathf.Abs(dir_reversed.magnitude) >= Mathf.Abs(dir_normal.magnitude))
+			{
+				queue_reversal = false;
+			}
+			else
+			{
+
+				if (dir_diff.magnitude > 1)
+				{
+					pos_reversed = target.transform.position;
+				}
+				else if (player_diff.magnitude > reverse_distance)
+				{
+					queue_reversal = false;
+					Reverse();
+				}
+			}
+		}
+		else
+		{
+			pos_reversed = target.transform.position;
+			if (Mathf.Abs(dir_reversed.magnitude) < Mathf.Abs(dir_normal.magnitude))
+			{
+				queue_reversal = true;
+			}
 		}
 	}
 

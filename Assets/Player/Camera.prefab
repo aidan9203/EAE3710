@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 0.02
-  rotation_speed: 0.1
   distance: 5
   loop: 1
+  reverse_distance: 2
   waypoints: []
