@@ -36,8 +36,6 @@ public class LineOfSight : MonoBehaviour
         }
     }
 
-
-
 	void OnTriggerEnter(Collider collider)
 	{
         if(IsBehindEnemy())
