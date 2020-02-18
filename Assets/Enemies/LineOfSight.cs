@@ -9,7 +9,8 @@ public class LineOfSight : MonoBehaviour
     public float viewDistance = 10.0f;
     [Range(0, 1)]
     public float trackingSpeed = 0.1f;
-
+    [Range(0, 1)]
+    public float backstabSensitivity = 0.9f;
 
     private int tempI = 0; // Used for logging if player is visible
     // Start is called before the first frame update
@@ -35,23 +36,24 @@ public class LineOfSight : MonoBehaviour
         }
     }
 
-
-
 	void OnTriggerEnter(Collider collider)
 	{
-		if (collider.gameObject.tag == "Drill")
-		{
-			Destroy(transform.gameObject);
-		}
-		else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-		{
-			GetComponent<SentryController>().ChangeSkullVisiblity(true);
-		}
+        if(IsBehindEnemy())
+        {
+            if (collider.gameObject.tag == "Drill")
+            {
+                Destroy(transform.gameObject);
+            }
+            else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                GetComponent<SentryController>().ChangeSkullVisiblity(true);
+            }
+        }
 	}
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.gameObject.tag == "Drill")
+		if (collider.gameObject.tag == "Drill" && IsBehindEnemy())
 		{
 			Destroy(transform.gameObject);
 		}
@@ -64,4 +66,15 @@ public class LineOfSight : MonoBehaviour
 			GetComponent<SentryController>().ChangeSkullVisiblity(false);
 		}
 	}
+
+    private bool IsBehindEnemy()
+    {
+        if (Vector3.Dot(transform.forward.normalized, -(playerTransform.forward).normalized) > backstabSensitivity)
+        {
+            //  Play animation here
+            return true;
+        }
+
+        return false;
+    }
 }
