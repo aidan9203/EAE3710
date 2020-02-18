@@ -40,19 +40,22 @@ public class LineOfSight : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
-		if (collider.gameObject.tag == "Drill")
-		{
-			Destroy(transform.gameObject);
-		}
-		else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-		{
-			GetComponent<SentryController>().ChangeSkullVisiblity(true);
-		}
+        if(IsBehindEnemy())
+        {
+            if (collider.gameObject.tag == "Drill")
+            {
+                Destroy(transform.gameObject);
+            }
+            else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                GetComponent<SentryController>().ChangeSkullVisiblity(true);
+            }
+        }
 	}
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.gameObject.tag == "Drill")
+		if (collider.gameObject.tag == "Drill" && IsBehindEnemy())
 		{
 			Destroy(transform.gameObject);
 		}
