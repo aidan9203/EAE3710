@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5362419411147393877}
   - component: {fileID: 8912053331214063723}
   - component: {fileID: 6625408041393985955}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: treads
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2372363250849264007}
   - component: {fileID: 2372363250849264006}
   - component: {fileID: 5506973248573209749}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6434536053321025865}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: corner_fr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 1118459774680397042}
   - component: {fileID: 6681398281733965835}
   - component: {fileID: 5404340613392723276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: drill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5172247353170257300}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: corner_fl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3475793531318002129}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: corner_rr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4779833636481745196}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: corner_rl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 2694819839772892257}
   - component: {fileID: 2120463164799321194}
   - component: {fileID: 6256238858410494373}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
