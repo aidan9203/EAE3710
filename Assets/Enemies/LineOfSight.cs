@@ -13,11 +13,6 @@ public class LineOfSight : MonoBehaviour
     public float backstabSensitivity = 0.9f;
 
     private int tempI = 0; // Used for logging if player is visible
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
