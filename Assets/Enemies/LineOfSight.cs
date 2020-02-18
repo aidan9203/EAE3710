@@ -34,4 +34,34 @@ public class LineOfSight : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, trackingSpeed);
         }
     }
+
+
+
+	void OnTriggerEnter(Collider collider)
+	{
+		if (collider.gameObject.tag == "Drill")
+		{
+			Destroy(transform.gameObject);
+		}
+		else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			GetComponent<SentryController>().ChangeSkullVisiblity(true);
+		}
+	}
+
+	private void OnTriggerStay(Collider collider)
+	{
+		if (collider.gameObject.tag == "Drill")
+		{
+			Destroy(transform.gameObject);
+		}
+	}
+
+	private void OnTriggerExit(Collider collider)
+	{
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			GetComponent<SentryController>().ChangeSkullVisiblity(false);
+		}
+	}
 }
