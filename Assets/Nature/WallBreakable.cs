@@ -19,9 +19,9 @@ public class WallBreakable : MonoBehaviour
         rb.velocity += 10 * gravity * Time.deltaTime;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collider)
     {
-        if (collision.collider.tag == "Drill") {
+        if (collider.tag == "Drill") {
             rb.isKinematic = false;
         }
     }

@@ -1504,6 +1504,7 @@ MonoBehaviour:
   speed: 0.05
   distance: 5
   loop: 1
+  reverse_distance: 2
   waypoints: []
 --- !u!1 &283594141
 GameObject:
