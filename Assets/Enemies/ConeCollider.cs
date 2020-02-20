@@ -17,8 +17,8 @@ public class ConeCollider : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider) {
         if(collider.CompareTag("PlayerModel")) {
-            Debug.Log("Player entered cone");
-            Instantiate(projectile, transform.position, transform.rotation);
+            GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
+            spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * 3;
         }
     }
 
