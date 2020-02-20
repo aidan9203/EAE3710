@@ -12,45 +12,33 @@ public class LineOfSight : MonoBehaviour
     [Range(0, 1)]
     public float backstabSensitivity = 0.9f;
 
-    private int tempI = 0; // Used for logging if player is visible
+    private GameObject parentReference;
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Calculate direction to player
-        Vector3 direction = playerTransform.position - transform.position;
-        
-        float angle = Vector3.Angle(direction, transform.forward);
-        if(angle < viewAngle && Vector3.Distance(transform.position, playerTransform.position) < viewDistance) {
-            Debug.Log("Player visible " + tempI);
-            tempI++;
-
-            // Rotate towards player
-            Quaternion newAngle = Quaternion.LookRotation(playerTransform.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, trackingSpeed);
-        }
+    void Start() {
+        parentReference = transform.parent.gameObject;    
     }
 
 	void OnTriggerEnter(Collider collider)
 	{
+        Debug.Log("Main trigger fired");
         if(IsBehindEnemy())
         {
-            if (collider.gameObject.tag == "Drill")
+            if (collider.CompareTag("Drill"))
             {
-                Destroy(transform.gameObject);
+                Destroy(parentReference);
             }
             else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                GetComponent<SentryController>().ChangeSkullVisiblity(true);
+                parentReference.GetComponent<SentryController>().ChangeSkullVisiblity(true);
             }
         }
 	}
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.gameObject.tag == "Drill" && IsBehindEnemy())
+		if (collider.tag == "Drill" && IsBehindEnemy())
 		{
-			Destroy(transform.gameObject);
+			Destroy(parentReference);
 		}
 	}
 
@@ -58,7 +46,7 @@ public class LineOfSight : MonoBehaviour
 	{
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
-			GetComponent<SentryController>().ChangeSkullVisiblity(false);
+			parentReference.GetComponent<SentryController>().ChangeSkullVisiblity(false);
 		}
 	}
 
