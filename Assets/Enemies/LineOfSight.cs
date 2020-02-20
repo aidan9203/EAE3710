@@ -11,6 +11,7 @@ public class LineOfSight : MonoBehaviour
     public float trackingSpeed = 0.1f;
     [Range(0, 1)]
     public float backstabSensitivity = 0.9f;
+    public GameObject spawnOnDeath;
 
     private GameObject parentReference;
 
