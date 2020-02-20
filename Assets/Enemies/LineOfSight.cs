@@ -20,7 +20,6 @@ public class LineOfSight : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
-        Debug.Log("Main trigger fired");
         if(IsBehindEnemy())
         {
             if (collider.CompareTag("Drill"))

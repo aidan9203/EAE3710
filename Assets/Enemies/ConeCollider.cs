@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ConeCollider : MonoBehaviour {
+    public GameObject projectile;
     [Range(0, 1)]
     public float trackingSpeed = 0.1f;
     [Range(0, 1)]
     public float backstabSensitivity = 0.9f;
-
+    
     private Transform parentTransform;
 
     void Start() {
@@ -17,6 +18,7 @@ public class ConeCollider : MonoBehaviour {
     private void OnTriggerEnter(Collider collider) {
         if(collider.CompareTag("Player")) {
             Debug.Log("Player entered cone");
+            Instantiate(projectile, transform.position, transform.rotation);
         }
     }
 
