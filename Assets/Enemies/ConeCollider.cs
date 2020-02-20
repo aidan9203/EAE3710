@@ -16,14 +16,14 @@ public class ConeCollider : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider collider) {
-        if(collider.CompareTag("Player")) {
+        if(collider.CompareTag("PlayerModel")) {
             Debug.Log("Player entered cone");
             Instantiate(projectile, transform.position, transform.rotation);
         }
     }
 
     private void OnTriggerStay(Collider collider) {
-        if (collider.CompareTag("Player")) {
+        if (collider.CompareTag("PlayerModel")) {
             // Rotate towards player
             Quaternion newAngle = Quaternion.LookRotation(collider.gameObject.transform.position - parentTransform.position);
             parentTransform.rotation = Quaternion.Slerp(parentTransform.rotation, newAngle, trackingSpeed);

@@ -5,12 +5,10 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.CompareTag("Player")) {
+        if(collision.gameObject.CompareTag("PlayerModel")) {
             collision.gameObject.SetActive(false);
         }
         // Collided with a wall or something
-        else {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }
