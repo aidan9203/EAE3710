@@ -93,17 +93,20 @@ public class PlayerMovement : MonoBehaviour
 			normal += (c1.collider != null ? c1.normal : Vector3.zero);
 			normal += (c2.collider != null ? c2.normal : Vector3.zero);
 			normal += (c3.collider != null ? c3.normal : Vector3.zero);
-			if (hits > 0) { normal /= hits; }
+			if (hits > 0) { normal = normal.normalized; }
 			else { normal = -gravity; }
 		}
 		
 		tf.up = Vector3.Lerp(tf.up, normal, 0.05f);
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 		rotation_d = Vector2.Lerp(new Vector2(rotation_d, 0), new Vector2(rotation_offset, 0), 0.05f).x;
-		Debug.Log((tf.up - normal).magnitude);
+		Debug.Log(tf.up - normal);
 		if (fixer_upside_down)
 		{
-			if ((tf.up - normal).magnitude < 0.35f) { fixer_upside_down = false; }
+			if (tf.up.x - normal.x < 0.1f && tf.up.x - normal.x > -0.1f
+				&& tf.up.y - normal.y < 0.1f && tf.up.y - normal.y > -0.1f
+				&& tf.up.z - normal.z < 0.1f && tf.up.z - normal.z > -0.1f)
+				{ fixer_upside_down = false; }
 			tf.RotateAround(tf.position, tf.up, rotation);
 		}
 		else
