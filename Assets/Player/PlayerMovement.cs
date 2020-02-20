@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 	float rotation = 0;
 	float rotation_d = 0;
 	float rotation_offset = 0;
+	bool fixer_upside_down = false;
 
 	bool gravity_change = false;
 
@@ -92,7 +93,18 @@ public class PlayerMovement : MonoBehaviour
 		tf.up = Vector3.Lerp(tf.up, normal, 0.05f);
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 		rotation_d = Vector2.Lerp(new Vector2(rotation_d, 0), new Vector2(rotation_offset, 0), 0.05f).x;
-		tf.RotateAround(tf.position, tf.up, rotation + rotation_d);
+		if (fixer_upside_down)
+		{
+			if ((Mathf.Abs(tf.eulerAngles.x) - 180 <= 0.5f && Mathf.Abs(tf.eulerAngles.x) - 180 >= -0.5f)
+				|| (Mathf.Abs(tf.eulerAngles.z) - 180 <= 0.5f && Mathf.Abs(tf.eulerAngles.z) - 180 >= -0.5f)
+				|| (Mathf.Abs(tf.eulerAngles.x) - 90 <= 0.5f && Mathf.Abs(tf.eulerAngles.x) - 90 >= -0.5f))
+				{ fixer_upside_down = false; }
+			tf.RotateAround(tf.position, tf.up, rotation);
+		}
+		else
+		{
+			tf.RotateAround(tf.position, tf.up, rotation + rotation_d);
+		}
 
 		//Apply motion relative to orientation/gravity
 		float vel_x = speed * (-Mathf.Abs(tf.up.y) * move_horizontal - Mathf.Abs(tf.up.z) * move_horizontal) + (Mathf.Abs(rb.velocity.x) + 20 * Time.deltaTime) * gravity.x;
@@ -110,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		g.Normalize();
 		if (gravity.Equals(g)) { return; }
+		fixer_upside_down = false;
 		if (gravity.x > 0 && g.z > 0) { rotation_offset -= 90; }
 		if (gravity.z > 0 && g.x > 0) { rotation_offset += 90; }
 
@@ -122,8 +135,8 @@ public class PlayerMovement : MonoBehaviour
 		if (gravity.x < 0 && g.z < 0) { rotation_offset -= 90; }
 		if (gravity.z < 0 && g.x < 0) { rotation_offset += 90; }
 
-		if (gravity.x != 0 && g.y > 0) { rotation_offset += 180; }
-		if (gravity.y > 0 && g.x != 0) { rotation_offset -= 180; }
+		if (gravity.x != 0 && g.y > 0) { rotation_offset -= 180; fixer_upside_down = true; }
+		if (gravity.y > 0 && g.x != 0) { rotation_offset += 180; fixer_upside_down = true; }
 		gravity = g;
 		normal = -g;
 		gravity_change = true;
