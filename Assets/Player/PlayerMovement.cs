@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
 	bool gravity_change = false;
 
+	public bool alive = true;
+
 	Vector3 normal = Vector3.up;
 
 	// Start is called before the first frame update
@@ -38,6 +40,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		if (!alive)
+		{
+			this.gameObject.SetActive(false);
+		}
+
 		//Drilling
 		drill.SetActive(drill_enable);
 		if (drill_enable)
