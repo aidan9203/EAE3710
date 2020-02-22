@@ -6,8 +6,6 @@ public class ConeCollider : MonoBehaviour {
     public GameObject projectile;
     [Range(0, 1)]
     public float trackingSpeed = 0.1f;
-    [Range(0, 1)]
-    public float backstabSensitivity = 0.9f;
     
     private Transform parentTransform;
 
