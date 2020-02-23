@@ -6,7 +6,7 @@ public class ConeCollider : MonoBehaviour {
     public GameObject projectile;
     [Range(0, 1)]
     public float trackingSpeed = 0.1f;
-    
+    public float projectileSpeed = 3.0f;
     private Transform parentTransform;
 
     void Start() {
@@ -16,7 +16,7 @@ public class ConeCollider : MonoBehaviour {
     private void OnTriggerEnter(Collider collider) {
         if(collider.CompareTag("PlayerModel")) {
             GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
-            spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * 3;
+            spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
         }
     }
 
