@@ -23,6 +23,7 @@ public class WallBreakable : MonoBehaviour
     {
         if (collider.tag == "Drill") {
             rb.isKinematic = false;
+            gravity = -collider.transform.parent.GetComponent<PlayerMovement>().GetGravity();
         }
     }
 

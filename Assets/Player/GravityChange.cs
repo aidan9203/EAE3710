@@ -22,7 +22,7 @@ public class GravityChange : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Player")
+        if (collision.collider.tag == "PlayerTread")
         {
             collision.collider.transform.parent.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
         }

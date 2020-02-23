@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6625408041393985955}
   m_Layer: 8
   m_Name: treads
-  m_TagString: Player
+  m_TagString: PlayerTread
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 5506973248573209749}
   m_Layer: 8
   m_Name: Player
-  m_TagString: PlayerModel
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,6 +220,7 @@ MonoBehaviour:
   drill: {fileID: 4937579455716179159}
   drill_enable: 0
   alive: 1
+  keys: []
 --- !u!65 &5506973248573209749
 BoxCollider:
   m_ObjectHideFlags: 0
