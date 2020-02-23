@@ -14,14 +14,14 @@ public class ConeCollider : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider collider) {
-        if(collider.CompareTag("PlayerModel")) {
+        if(collider.CompareTag("Player")) {
             GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
             spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
         }
     }
 
     private void OnTriggerStay(Collider collider) {
-        if (collider.CompareTag("PlayerModel")) {
+        if (collider.CompareTag("Player")) {
             // Rotate towards player
             Quaternion newAngle = Quaternion.LookRotation(collider.gameObject.transform.position - parentTransform.position);
             parentTransform.rotation = Quaternion.Slerp(parentTransform.rotation, newAngle, trackingSpeed);

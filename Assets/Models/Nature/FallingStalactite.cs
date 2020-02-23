@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallBreakable : MonoBehaviour
+public class FallingStalactite : MonoBehaviour
 {
     Rigidbody rb;
-    Vector3 gravity = Vector3.zero;
+    public Vector3 gravity;
+    bool fallen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -16,19 +17,18 @@ public class WallBreakable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity += 10 * gravity * Time.deltaTime;
-    }
-
-    public void OnTriggerEnter(Collider collider)
-    {
-        if (collider.tag == "Drill") {
-            rb.isKinematic = false;
+        if (fallen)
+        {
+            rb.velocity += 10 * gravity * Time.deltaTime;
         }
     }
 
-    public void ChangeGravity(Vector3 g)
+    public void OnTriggerStay(Collider collider)
     {
-        g.Normalize();
-        gravity = g;
+        if (collider.tag == "Drill")
+        {
+            rb.isKinematic = false;
+            fallen = true;
+        }
     }
 }
