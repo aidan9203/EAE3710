@@ -14,6 +14,7 @@ public class LineOfSight : MonoBehaviour
     public GameObject spawnOnDeath;
 
     private GameObject parentReference;
+    private bool deathItemSpawned = false;
 
     void Start() {
         parentReference = transform.parent.gameObject;    
@@ -72,6 +73,9 @@ public class LineOfSight : MonoBehaviour
     }
 
     private void SpawnDeathItem() {
-        Instantiate(spawnOnDeath, parentReference.transform.position, spawnOnDeath.transform.rotation);
+        if(spawnOnDeath != null && !deathItemSpawned) {
+            deathItemSpawned = true;
+            Instantiate(spawnOnDeath, parentReference.transform.position, spawnOnDeath.transform.rotation);
+        }
     }
 }
