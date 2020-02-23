@@ -100,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
 		tf.up = Vector3.Lerp(tf.up, normal, 0.05f);
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 		rotation_d = Vector2.Lerp(new Vector2(rotation_d, 0), new Vector2(rotation_offset, 0), 0.05f).x;
-		Debug.Log(tf.up - normal);
 		if (fixer_upside_down)
 		{
 			if (tf.up.x - normal.x < 0.1f && tf.up.x - normal.x > -0.1f
