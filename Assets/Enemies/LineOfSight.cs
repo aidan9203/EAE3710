@@ -2,80 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineOfSight : MonoBehaviour
-{
-    public Transform playerTransform;
-    public float viewAngle = 20.0f;
-    public float viewDistance = 10.0f;
+public class LineOfSight : MonoBehaviour {
+    public GameObject projectile;
     [Range(0, 1)]
     public float trackingSpeed = 0.1f;
-    [Range(0, 1)]
-    public float backstabSensitivity = 0.9f;
-    public GameObject spawnOnDeath;
-
-    private GameObject parentReference;
-    private bool deathItemSpawned = false;
+    public float projectileSpeed = 3.0f;
+    private Transform parentTransform;
 
     void Start() {
-        parentReference = transform.parent.gameObject;    
+        parentTransform = transform.parent;
     }
 
-	void OnTriggerEnter(Collider collider)
-	{
-        if(IsBehindEnemy())
-        {
-            if (collider.CompareTag("Drill"))
-            {
-                SpawnDeathItem();
-                Destroy(parentReference);
-            }
-            else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                parentReference.GetComponent<SentryController>().ChangeSkullVisiblity(true);
-            }
-        }
-	}
-
-	private void OnTriggerStay(Collider collider)
-	{
-		if (collider.tag == "Drill" && IsBehindEnemy())
-		{
-            SpawnDeathItem();
-			Destroy(parentReference);
-		}
-	}
-
-	private void OnTriggerExit(Collider collider)
-	{
-		if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-		{
-			parentReference.GetComponent<SentryController>().ChangeSkullVisiblity(false);
-		}
-	}
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "FallingStalactite")
-        {
-            Destroy(parentReference);
+    private void OnTriggerEnter(Collider collider) {
+        if(collider.CompareTag("Player")) {
+            GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
+            spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
         }
     }
 
-    private bool IsBehindEnemy()
-    {
-        if (Vector3.Dot(transform.forward.normalized, -(playerTransform.forward).normalized) > backstabSensitivity)
-        {
-            //  Play animation here
-            return true;
-        }
-
-        return false;
-    }
-
-    private void SpawnDeathItem() {
-        if(spawnOnDeath != null && !deathItemSpawned) {
-            deathItemSpawned = true;
-            Instantiate(spawnOnDeath, parentReference.transform.position, spawnOnDeath.transform.rotation);
+    private void OnTriggerStay(Collider collider) {
+        // Follow the player while they are in line of sight
+        if (collider.CompareTag("Player")) {
+            Quaternion newAngle = Quaternion.LookRotation(collider.gameObject.transform.position - parentTransform.position);
+            parentTransform.rotation = Quaternion.Slerp(parentTransform.rotation, newAngle, trackingSpeed);
         }
     }
 }
