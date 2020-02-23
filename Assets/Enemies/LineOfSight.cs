@@ -25,6 +25,7 @@ public class LineOfSight : MonoBehaviour
         {
             if (collider.CompareTag("Drill"))
             {
+                SpawnDeathItem();
                 Destroy(parentReference);
             }
             else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -38,6 +39,7 @@ public class LineOfSight : MonoBehaviour
 	{
 		if (collider.tag == "Drill" && IsBehindEnemy())
 		{
+            SpawnDeathItem();
 			Destroy(parentReference);
 		}
 	}
@@ -67,5 +69,9 @@ public class LineOfSight : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void SpawnDeathItem() {
+        Instantiate(spawnOnDeath, parentReference.transform.position, spawnOnDeath.transform.rotation);
     }
 }
