@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
 	public float speed;
 	public float distance;
 	public bool loop;
+	public bool rotate_with_player;
 	public float reverse_distance;
 
 	Transform tf;
@@ -54,11 +55,14 @@ public class CameraFollow : MonoBehaviour
 		//Make sure the player is always right side up
 		Vector3 target_gravity = target.GetComponent<PlayerMovement>().GetGravity();
 		float rot_offset = 0;
-		if (target_gravity.y > 0) { rot_offset = 180; }
-		else if (target_gravity.x > 0) { rot_offset = (target.transform.position.z < transform.position.z ? -90 : 90); }
-		else if (target_gravity.x < 0) { rot_offset = (target.transform.position.z < transform.position.z ? 90 : -90); }
-		else if (target_gravity.z > 0) { rot_offset = (target.transform.position.x < transform.position.x ? 90 : -90); }
-		else if (target_gravity.z < 0) { rot_offset = (target.transform.position.x < transform.position.x ? -90 : 90); }
+		if (rotate_with_player)
+		{
+			if (target_gravity.y > 0) { rot_offset = 180; }
+			else if (target_gravity.x > 0) { rot_offset = (target.transform.position.z < transform.position.z ? -90 : 90); }
+			else if (target_gravity.x < 0) { rot_offset = (target.transform.position.z < transform.position.z ? 90 : -90); }
+			else if (target_gravity.z > 0) { rot_offset = (target.transform.position.x < transform.position.x ? 90 : -90); }
+			else if (target_gravity.z < 0) { rot_offset = (target.transform.position.x < transform.position.x ? -90 : 90); }
+		}
 
 		//Take the average of last two positions to help smooth camera
 		position_prev = position_next;

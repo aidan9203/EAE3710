@@ -100,5 +100,6 @@ MonoBehaviour:
   speed: 0.01
   distance: 5
   loop: 1
-  reverse_distance: 2
+  rotate_with_player: 0
+  reverse_distance: 3
   waypoints: []

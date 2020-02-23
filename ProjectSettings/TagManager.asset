@@ -7,7 +7,7 @@ TagManager:
   - Breakable
   - Drill
   - Enemy
-  - PlayerModel
+  - PlayerTread
   layers:
   - Default
   - TransparentFX

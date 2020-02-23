@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
 	Vector3 normal = Vector3.up;
 
+	public List<string> keys = new List<string>();
+
 	// Start is called before the first frame update
 	void Start()
     {
