@@ -8,6 +8,7 @@ TagManager:
   - Drill
   - Enemy
   - PlayerTread
+  - FallingStalactite
   layers:
   - Default
   - TransparentFX

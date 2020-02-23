@@ -50,6 +50,14 @@ public class LineOfSight : MonoBehaviour
 		}
 	}
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "FallingStalactite")
+        {
+            Destroy(parentReference);
+        }
+    }
+
     private bool IsBehindEnemy()
     {
         if (Vector3.Dot(transform.forward.normalized, -(playerTransform.forward).normalized) > backstabSensitivity)
