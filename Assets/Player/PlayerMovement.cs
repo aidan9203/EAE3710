@@ -20,11 +20,6 @@ public class PlayerMovement : MonoBehaviour
 	Transform tf;
 	Rigidbody rb;
 
-	float rotation = 0;
-	float rotation_d = 0;
-	float rotation_offset = 0;
-	bool fixer_upside_down = false;
-
 	bool gravity_change = false;
 
 	public bool alive = true;
@@ -79,13 +74,21 @@ public class PlayerMovement : MonoBehaviour
 		if (Input.GetKey(KeyCode.D)) { input_horizontal += 1; }
 		if (Input.GetKey(KeyCode.A)) { input_horizontal -= 1; }
 
-		if (Input.GetKey(KeyCode.E)) { input_rotate += 1; }
-		if (Input.GetKey(KeyCode.Q)) { input_rotate -= 1; }
+		if (gravity.y != 0)
+		{
+			input_rotate = cam.transform.eulerAngles.y;
+		}
+		else if (gravity.x != 0)
+		{
+			input_rotate = cam.transform.eulerAngles.x + 180;
+		}
+		else if (gravity.z != 0)
+		{
+			input_rotate = cam.transform.eulerAngles.x + 180;
+		}
 
-		rotation += 180.0f * input_rotate * Time.deltaTime;
-
-		float move_horizontal = input_horizontal * Mathf.Cos(Mathf.Deg2Rad * (rotation + rotation_offset)) + input_vertical * Mathf.Sin(Mathf.Deg2Rad * (rotation + rotation_offset));
-		float move_vertical = input_vertical * Mathf.Cos(Mathf.Deg2Rad * (rotation + rotation_offset)) - input_horizontal * Mathf.Sin(Mathf.Deg2Rad * (rotation + rotation_offset));
+		float move_horizontal = -input_horizontal * Mathf.Cos(Mathf.Deg2Rad * input_rotate) - input_vertical * Mathf.Sin(Mathf.Deg2Rad * input_rotate);
+		float move_vertical = -input_vertical * Mathf.Cos(Mathf.Deg2Rad * input_rotate) + input_horizontal * Mathf.Sin(Mathf.Deg2Rad * input_rotate);
 
 		//Orient the player with gravity
 		if (!gravity_change)
@@ -103,22 +106,15 @@ public class PlayerMovement : MonoBehaviour
 			if (hits > 0) { normal = normal.normalized; }
 			else { normal = -gravity; }
 		}
-		
 		tf.up = Vector3.Lerp(tf.up, normal, 0.05f);
+		if (move_vertical != 0 || move_horizontal != 0)
+		{
+			float f_x = (Mathf.Abs(normal.y) * move_horizontal + Mathf.Abs(normal.z) * move_horizontal);
+			float f_y = (-normal.x * move_horizontal - normal.z * move_vertical);
+			float f_z = (normal.y * move_vertical + Mathf.Abs(normal.x) * move_vertical);
+			tf.forward = (new Vector3(f_x, f_y, f_z)).normalized;
+		}
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
-		rotation_d = Vector2.Lerp(new Vector2(rotation_d, 0), new Vector2(rotation_offset, 0), 0.05f).x;
-		if (fixer_upside_down)
-		{
-			if (tf.up.x - normal.x < 0.1f && tf.up.x - normal.x > -0.1f
-				&& tf.up.y - normal.y < 0.1f && tf.up.y - normal.y > -0.1f
-				&& tf.up.z - normal.z < 0.1f && tf.up.z - normal.z > -0.1f)
-				{ fixer_upside_down = false; }
-			tf.RotateAround(tf.position, tf.up, rotation);
-		}
-		else
-		{
-			tf.RotateAround(tf.position, tf.up, rotation + rotation_d);
-		}
 
 		//Apply motion relative to orientation/gravity
 		float vel_x = speed * (-Mathf.Abs(tf.up.y) * move_horizontal - Mathf.Abs(tf.up.z) * move_horizontal) + (Mathf.Abs(rb.velocity.x) + 20 * Time.deltaTime) * gravity.x;
@@ -136,21 +132,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		g.Normalize();
 		if (gravity.Equals(g)) { return; }
-		fixer_upside_down = false;
-		if (gravity.x > 0 && g.z > 0) { rotation_offset -= 90; }
-		if (gravity.z > 0 && g.x > 0) { rotation_offset += 90; }
-
-		if (gravity.x > 0 && g.z < 0) { rotation_offset += 90; }
-		if (gravity.z > 0 && g.x < 0) { rotation_offset -= 90; }
-
-		if (gravity.x < 0 && g.z > 0) { rotation_offset += 90; }
-		if (gravity.z < 0 && g.x > 0) { rotation_offset -= 90; }
-
-		if (gravity.x < 0 && g.z < 0) { rotation_offset -= 90; }
-		if (gravity.z < 0 && g.x < 0) { rotation_offset += 90; }
-
-		if (gravity.x != 0 && g.y > 0) { rotation_offset -= 180; fixer_upside_down = true; }
-		if (gravity.y > 0 && g.x != 0) { rotation_offset += 180; fixer_upside_down = true; }
 		gravity = g;
 		normal = -g;
 		gravity_change = true;
