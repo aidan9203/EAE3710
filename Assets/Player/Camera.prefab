@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 0.01
+  speed: 0.02
   distance: 5
-  loop: 1
+  loop: 0
   rotate_with_player: 0
   reverse_distance: 3
   waypoints: []

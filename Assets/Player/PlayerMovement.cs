@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+	public GameObject camera_prefab;
+	GameObject cam;
+
 	public float speed;
 
 	public Transform[] corners = new Transform[4];
@@ -37,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		rb.centerOfMass = new Vector3(0, -0.5f, 0);
 		drill.SetActive(drill_enable);
+		cam = GameObject.Instantiate(camera_prefab, tf.position, Quaternion.Euler(Vector3.zero));
+		cam.GetComponent<CameraFollow>().target = this.gameObject;
     }
 
     // Update is called once per frame
@@ -71,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
 		//Basic motion
 		if (Input.GetKey(KeyCode.W)) { input_vertical += 1; }
 		if (Input.GetKey(KeyCode.S)) { input_vertical -= 1; }
-		//if (Input.GetKey(KeyCode.D)) { input_horizontal += 1; }
-		//if (Input.GetKey(KeyCode.A)) { input_horizontal -= 1; }
+		if (Input.GetKey(KeyCode.D)) { input_horizontal += 1; }
+		if (Input.GetKey(KeyCode.A)) { input_horizontal -= 1; }
 
 		if (Input.GetKey(KeyCode.E)) { input_rotate += 1; }
 		if (Input.GetKey(KeyCode.Q)) { input_rotate -= 1; }
