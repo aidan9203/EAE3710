@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2317262454654680241, guid: 3a64688060b68b641bd7d999fd7f5a00,
+        type: 3}
+      propertyPath: rotate_with_player
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2317262454654680244, guid: 3a64688060b68b641bd7d999fd7f5a00,
         type: 3}
       propertyPath: m_LocalPosition.x

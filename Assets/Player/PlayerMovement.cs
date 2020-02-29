@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 	public bool alive = true;
 
 	Vector3 normal = Vector3.up;
+	float rotation = 0;
 
 	public List<string> keys = new List<string>();
 
@@ -64,9 +65,8 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-		float input_vertical = 0;
-		float input_horizontal = 0;
-		float input_rotate = 0;
+		float input_vertical = -Input.GetAxis("Vertical");
+		float input_horizontal = Input.GetAxis("Horizontal");
 
 		//Basic motion
 		if (Input.GetKey(KeyCode.W)) { input_vertical += 1; }
@@ -74,21 +74,46 @@ public class PlayerMovement : MonoBehaviour
 		if (Input.GetKey(KeyCode.D)) { input_horizontal += 1; }
 		if (Input.GetKey(KeyCode.A)) { input_horizontal -= 1; }
 
-		if (gravity.y != 0)
+		input_vertical = Mathf.Clamp(input_vertical, -1, 1);
+		input_horizontal = Mathf.Clamp(input_horizontal, -1, 1);
+
+		float input_rotate = input_rotate = cam.transform.eulerAngles.y;
+
+		//Set and interpolate rotation
+		if (input_horizontal != 0 || input_vertical != 0)
 		{
-			input_rotate = cam.transform.eulerAngles.y;
-		}
-		else if (gravity.x != 0)
-		{
-			input_rotate = cam.transform.eulerAngles.x + 180;
-		}
-		else if (gravity.z != 0)
-		{
-			input_rotate = cam.transform.eulerAngles.x + 180;
+			float rotation_goal = Mathf.Rad2Deg * Mathf.Atan2(-input_horizontal * Mathf.Cos(Mathf.Deg2Rad * input_rotate) - input_vertical * Mathf.Sin(Mathf.Deg2Rad * input_rotate),
+				-input_vertical * Mathf.Cos(Mathf.Deg2Rad * input_rotate) + input_horizontal * Mathf.Sin(Mathf.Deg2Rad * input_rotate));
+			if (Mathf.Abs(rotation - rotation_goal) <= 180)
+			{
+				if (rotation < rotation_goal)
+				{
+					rotation += 500 * Time.deltaTime;
+					if (rotation > rotation_goal) { rotation = rotation_goal; }
+				}
+				else
+				{
+					rotation -= 500 * Time.deltaTime;
+					if (rotation < rotation_goal) { rotation = rotation_goal; }
+				}
+			}
+			else
+			{
+				if (rotation < rotation_goal)
+				{
+					rotation -= 500 * Time.deltaTime;
+					if (rotation < -180) { rotation += 360; }
+				}
+				else
+				{
+					rotation += 500 * Time.deltaTime;
+					if (rotation > 180) { rotation -= 360; }
+				}
+			}
 		}
 
-		float move_horizontal = -input_horizontal * Mathf.Cos(Mathf.Deg2Rad * input_rotate) - input_vertical * Mathf.Sin(Mathf.Deg2Rad * input_rotate);
-		float move_vertical = -input_vertical * Mathf.Cos(Mathf.Deg2Rad * input_rotate) + input_horizontal * Mathf.Sin(Mathf.Deg2Rad * input_rotate);
+		float move_vertical = Mathf.Max(Mathf.Abs(input_horizontal), Mathf.Abs(input_vertical)) * Mathf.Cos(Mathf.Deg2Rad * rotation);
+		float move_horizontal = Mathf.Max(Mathf.Abs(input_horizontal), Mathf.Abs(input_vertical)) * Mathf.Sin(Mathf.Deg2Rad * rotation);
 
 		//Orient the player with gravity
 		if (!gravity_change)
@@ -106,14 +131,10 @@ public class PlayerMovement : MonoBehaviour
 			if (hits > 0) { normal = normal.normalized; }
 			else { normal = -gravity; }
 		}
+
 		tf.up = Vector3.Lerp(tf.up, normal, 0.05f);
-		if (move_vertical != 0 || move_horizontal != 0)
-		{
-			float f_x = (Mathf.Abs(normal.y) * move_horizontal + Mathf.Abs(normal.z) * move_horizontal);
-			float f_y = (-normal.x * move_horizontal - normal.z * move_vertical);
-			float f_z = (normal.y * move_vertical + Mathf.Abs(normal.x) * move_vertical);
-			tf.forward = (new Vector3(f_x, f_y, f_z)).normalized;
-		}
+		tf.RotateAround(tf.position, tf.up, rotation);
+		
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 
 		//Apply motion relative to orientation/gravity
