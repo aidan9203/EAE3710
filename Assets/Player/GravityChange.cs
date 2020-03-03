@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GravityChange : MonoBehaviour
 {
-    public int gravity_x;
-    public int gravity_y;
-    public int gravity_z;
+    public float gravity_x;
+    public float gravity_y;
+    public float gravity_z;
 
     // Start is called before the first frame update
     void Start()

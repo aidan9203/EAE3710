@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
 	public float speed;
 	public float distance;
 	public bool loop;
+	public bool auto_waypoint;
 	public float reverse_distance;
 
 	Transform tf;
@@ -41,8 +42,7 @@ public class CameraFollow : MonoBehaviour
 				w = GameObject.Find(name);
 			}
 		}
-
-		ResetWaypoints();
+		if (auto_waypoint) { ResetWaypoints(); }
 		tf.position = FindPoint();
 		position_prev = tf.position;
 		position_next = tf.position;

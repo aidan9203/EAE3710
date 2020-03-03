@@ -98,8 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 0.02
-  distance: 5
+  distance: 4
   loop: 0
-  rotate_with_player: 1
-  reverse_distance: 3
+  reverse_distance: 2
   waypoints: []
