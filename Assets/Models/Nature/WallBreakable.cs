@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WallBreakable : MonoBehaviour
 {
+	public string destroy_tag;
+
     Rigidbody rb;
     Vector3 gravity = Vector3.zero;
 
@@ -21,13 +23,22 @@ public class WallBreakable : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Drill") {
+        if (collider.tag == destroy_tag) {
             rb.isKinematic = false;
-            gravity = -collider.transform.parent.GetComponent<PlayerMovement>().GetGravity();
+            gravity = collider.transform.parent.GetComponent<PlayerMovement>().GetGravity();
         }
     }
 
-    public void ChangeGravity(Vector3 g)
+	public void  OnCollisionEnter(Collision collision)
+	{
+		if (collision.collider.tag == destroy_tag)
+		{
+			rb.isKinematic = false;
+			gravity = collision.collider.transform.parent.GetComponent<PlayerMovement>().GetGravity();
+		}
+	}
+
+	public void ChangeGravity(Vector3 g)
     {
         g.Normalize();
         gravity = g;

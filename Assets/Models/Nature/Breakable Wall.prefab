@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &477197267168022321
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &789912592257002824
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &1185120961302312478
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &1426563778237594981
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &1480780638521886325
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,6 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &1874786999071943200
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,6 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &2173137170783270024
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,6 +991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &3506776077516204543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &3589756118276899185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &4034714954721549272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &5340695976363934847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,6 +1487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &5744798565101274719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,6 +1611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &6827952999070220475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,6 +1784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &7322147707721400083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,6 +1908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &7404395085688667356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,6 +2032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &7847126532055272724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,6 +2156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &8794877819649284220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,6 +2280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
 --- !u!1 &9054620373364742482
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,3 +2404,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28125282f9e377d4f90b6056e96a2ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_tag: Drill
