@@ -51,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Debug.Log(normal);
 		if (!alive)
 		{
 			this.gameObject.SetActive(false);

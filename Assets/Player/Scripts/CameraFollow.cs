@@ -1,11 +1,11 @@
 ﻿/* README:
  * Controls camera movement
- * Set waypoints by placing empty gameobjects called "Camera Waypoint(n)" where n > 0
+ * Set waypoints by placing waypoint prefabs called "Camera Waypoint(n)" where n > 0
  * Make sure there are no gaps in numbers or the waypoints after the gap will not be found
  * 
  * target is the object for the camera to focus on
  * speed is how fast (or how smoothly) the camera follows the target
- * distance is how far the camera tries to stay from the target
+ * distance is how far the camera tries to stay from the target (distance can also be set per waypoint)
  * loop toggles whether the camera will loop back to the first waypoint after reaching the last and vice versa
  * auto_waypoint toggles whether the camera will automatically find the first waypoint or start at #1
  * reverse_distance is the distance the player must travel towards the camera before it changes direction
@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour
 	Transform tf;
 
 	int num_waypoints = 0;
-	public List<Vector3> waypoints;
+	public List<Transform> waypoints;
 	int previous = 0;
 	int next = 1;
 	bool reversed = false;
@@ -53,7 +53,7 @@ public class CameraFollow : MonoBehaviour
 			while (w != null)
 			{
 				num_waypoints++;
-				waypoints.Add(w.transform.position);
+				waypoints.Add(w.transform);
 				string name = "Camera Waypoint (" + (num_waypoints + 1) + ")";
 				w = GameObject.Find(name);
 			}
@@ -83,7 +83,7 @@ public class CameraFollow : MonoBehaviour
 	//Find the point along the waypoints that is closest but at least distance away from the player
 	private Vector3 FindPoint()
 	{
-		if (num_waypoints == 1) { return waypoints[0]; }
+		if (num_waypoints == 1) { return waypoints[0].position; }
 		UpdateDirection();
 		Vector3 point;
 		if (FindPointBetweenWaypoints(previous, next, out point))
@@ -94,20 +94,20 @@ public class CameraFollow : MonoBehaviour
 		{
 			//No point found between waypoints, either update waypoints or set position to appropriate extreme
 			Vector3 player_pos = target.GetComponent<Transform>().position;
-			float distance_previous = Mathf.Abs((waypoints[previous] - player_pos).magnitude);
-			float distance_next = Mathf.Abs((waypoints[next] - player_pos).magnitude);
+			float distance_previous = Mathf.Abs((waypoints[previous].position - player_pos).magnitude);
+			float distance_next = Mathf.Abs((waypoints[next].position - player_pos).magnitude);
 
 			Vector3 point_adjusted;
 			if (distance_next <= distance_previous)
 			{
 				if (!reversed)
 				{
-					if (!loop && next == num_waypoints - 1) { return waypoints[next]; }
+					if (!loop && next == num_waypoints - 1) { return waypoints[next].position; }
 					else if (FindPointBetweenWaypoints(previous + 1, next + 1, out point_adjusted)) { previous++; next++; point = point_adjusted; }
 				}
 				else
 				{
-					if (!loop && next == 0) { return waypoints[next]; }
+					if (!loop && next == 0) { return waypoints[next].position; }
 					else if (FindPointBetweenWaypoints(previous - 1, next - 1, out point_adjusted)) { previous--; next--; point = point_adjusted; }
 				}
 			}
@@ -115,12 +115,12 @@ public class CameraFollow : MonoBehaviour
 			{
 				if (!reversed)
 				{
-					if (!loop && previous == 0) { return waypoints[previous]; }
+					if (!loop && previous == 0) { return waypoints[previous].position; }
 					else if (FindPointBetweenWaypoints(previous - 1, next - 1, out point_adjusted)) { previous--; next--; point = point_adjusted; }
 				}
 				else
 				{
-					if (!loop && previous == num_waypoints - 1) { return waypoints[previous]; }
+					if (!loop && previous == num_waypoints - 1) { return waypoints[previous].position; }
 					else if (FindPointBetweenWaypoints(previous + 1, next + 1, out point_adjusted)) { previous++; next++; point = point_adjusted; }
 				}
 			}
@@ -147,30 +147,41 @@ public class CameraFollow : MonoBehaviour
 		
 		//Find point along waypoint that is distance from the target (Code from CS4600 Raytracing assignment)
 		Vector3 player_pos = target.GetComponent<Transform>().position;
-		Vector3 player_direction = player_pos - waypoints[prev];
-		Vector3 waypoint_direction = Vector3.Normalize(waypoints[nex] - waypoints[prev]);
+		Vector3 player_direction = player_pos - waypoints[prev].position;
+		Vector3 waypoint_direction = Vector3.Normalize(waypoints[nex].position - waypoints[prev].position);
 		float player_distance_waypoint = Vector3.Dot(player_direction, waypoint_direction);
 
-		if (player_distance_waypoint >= distance)
+		//Calculate camera distance from player
+		float distance_prev = (player_pos - waypoints[prev].position).magnitude;
+		float distance_next = (player_pos - waypoints[next].position).magnitude;
+		float distance_frac_next = distance_next / (distance_next + distance_prev);
+		float distance_frac_prev = distance_prev / (distance_next + distance_prev);
+		float distance_avg = 0;
+		if (waypoints[nex].GetComponent<CameraWaypoint>().distance > 0) { distance_avg += distance_frac_next * waypoints[nex].GetComponent<CameraWaypoint>().distance; }
+		else { distance_avg += distance_frac_next * distance; }
+		if (waypoints[prev].GetComponent<CameraWaypoint>().distance > 0) { distance_avg += distance_frac_prev * waypoints[prev].GetComponent<CameraWaypoint>().distance; }
+		else { distance_avg += distance_frac_next * distance; }
+
+		if (player_distance_waypoint >= distance_avg)
 		{
 			float point_dist_squared = Vector3.Dot(player_direction, player_direction) - player_distance_waypoint * player_distance_waypoint;
-			if (point_dist_squared <= (distance * distance))
+			if (point_dist_squared <= (distance_avg * distance_avg))
 			{
-				float distance_along_line = Mathf.Sqrt(distance * distance - point_dist_squared);
-				point = waypoints[prev] + (player_distance_waypoint - distance_along_line) * waypoint_direction;
+				float distance_along_line = Mathf.Sqrt(distance_avg * distance_avg - point_dist_squared);
+				point = waypoints[prev].position + (player_distance_waypoint - distance_along_line) * waypoint_direction;
 				return true;
 			}
 			else
 			{
 				//If closest point is farther than distance
-				point = waypoints[prev] + player_distance_waypoint * waypoint_direction;
+				point = waypoints[prev].position + player_distance_waypoint * waypoint_direction;
 				return false;
 			}
 		}
 		else
 		{
 			//If closest point is closer than distance
-			point = waypoints[prev];
+			point = waypoints[prev].position;
 			return false;
 		}
 	}
@@ -187,7 +198,7 @@ public class CameraFollow : MonoBehaviour
 		float min_distance = float.MaxValue;
 		for(int w = 1; w < num_waypoints - 1; w++)
 		{
-			float distance_current = Mathf.Abs((waypoints[w] - player_pos).magnitude);
+			float distance_current = Mathf.Abs((waypoints[w].position - player_pos).magnitude);
 			if (distance_current < min_distance)
 			{
 				min_index = w;
@@ -195,8 +206,8 @@ public class CameraFollow : MonoBehaviour
 			}
 		}
 
-		float distance_prev = Mathf.Abs((waypoints[min_index - 1] - player_pos).magnitude);
-		float distance_next = Mathf.Abs((waypoints[min_index + 1] - player_pos).magnitude);
+		float distance_prev = Mathf.Abs((waypoints[min_index - 1].position - player_pos).magnitude);
+		float distance_next = Mathf.Abs((waypoints[min_index + 1].position - player_pos).magnitude);
 		if (distance_next <= distance_prev)
 		{
 			previous = min_index;
@@ -217,8 +228,8 @@ public class CameraFollow : MonoBehaviour
 	private void UpdateDirection()
 	{
 		Vector3 dir_player = -target.GetComponent<Transform>().forward;
-		Vector3 dir_normal = Vector3.Normalize(waypoints[next] - waypoints[previous]) - dir_player;
-		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous] - waypoints[next]) - dir_player;		
+		Vector3 dir_normal = Vector3.Normalize(waypoints[next].position - waypoints[previous].position) - dir_player;
+		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous].position - waypoints[next].position) - dir_player;		
 
 		if (queue_reversal)
 		{
