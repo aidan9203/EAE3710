@@ -62,11 +62,21 @@ public class CameraFollow : MonoBehaviour
 		tf.position = FindPoint();
 		position_prev = tf.position;
 		position_next = tf.position;
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
+		//Draw debug lines
+		for (int c = 0; c < num_waypoints - 1; c++)
+		{
+			Debug.DrawLine(waypoints[c].position, waypoints[c + 1].position, Color.blue, 0.1f);
+		}
+		if (loop)
+		{
+			Debug.DrawLine(waypoints[0].position, waypoints[num_waypoints - 1].position, Color.blue, 0.1f);
+		}
+
 		//Take the average of last two positions to help smooth camera
 		position_prev = position_next;
 		position_next = Vector3.Lerp(tf.position, FindPoint(), speed);
