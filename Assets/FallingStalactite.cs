@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/* README:
+ * Add this script to an object you want to fall when hit with the drill
+ * The object must have a rigidbody attatched with gravity set to false and kinematic set to true
+ * The gravtiy of this object will be set to the player's gravity when hit
+ */
+
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

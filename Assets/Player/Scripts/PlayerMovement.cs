@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/* README:
+ * Controls player movement, gravity, and drilling
+ * camera_prefab is the camera that will be spawned
+ * speed is the move speed
+ * corners[] is the four corners used to calculate angle with the ground (empty gameObjects)
+ * keys[] is the list of key codes the player has collected
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

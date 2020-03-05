@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/* README:
+ * Add this script to any object you want to act as a key
+ * code is a string key for the player to unlock things
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

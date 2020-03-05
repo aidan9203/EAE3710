@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿/* README:
+ * Add this script to any object you want to kill the player on contact
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lava : MonoBehaviour
+public class Trap : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
