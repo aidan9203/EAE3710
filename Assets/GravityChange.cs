@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/* Readme:
+ * Add this script to any object that you want to change the player's gravity
+ * The direction of gravity can be set with gravity_x, gravtiy_y, and gravity_z which correspond to the game world axes
+ * The direction of gravity must be in only one direction (i.e. if gravity_x=-1, gravity_y=0 and gravtiy_z=0)
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +33,7 @@ public class GravityChange : MonoBehaviour
         }
         if (collision.collider.tag == "Breakable")
         {
-            collision.gameObject.GetComponent<WallBreakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
         }
     }
 
@@ -40,7 +45,7 @@ public class GravityChange : MonoBehaviour
         }
         if (collider.tag == "Breakable")
         {
-            gameObject.GetComponent<WallBreakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
         }
     }
 }
