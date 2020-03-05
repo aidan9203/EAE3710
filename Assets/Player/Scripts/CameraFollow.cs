@@ -1,4 +1,20 @@
-﻿using System.Collections;
+﻿/* README:
+ * Controls camera movement
+ * Set waypoints by placing empty gameobjects called "Camera Waypoint(n)" where n > 0
+ * Make sure there are no gaps in numbers or the waypoints after the gap will not be found
+ * 
+ * target is the object for the camera to focus on
+ * speed is how fast (or how smoothly) the camera follows the target
+ * distance is how far the camera tries to stay from the target
+ * loop toggles whether the camera will loop back to the first waypoint after reaching the last and vice versa
+ * auto_waypoint toggles whether the camera will automatically find the first waypoint or start at #1
+ * reverse_distance is the distance the player must travel towards the camera before it changes direction
+ * 
+ * If a waypoint is farther than distance from the player it will not transition to the next waypoint properly
+ * because the start of the path to the next waypoint will be out of range
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

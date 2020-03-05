@@ -1,8 +1,15 @@
-﻿using System.Collections;
+﻿/* README:
+ * Add this script to each piece of a breakable object
+ * destroy_tag is the tag of the object that can destroy it
+ * 
+ * This piece will need a rigidbody with gravity set to false and kinematic set to true
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallBreakable : MonoBehaviour
+public class Breakable : MonoBehaviour
 {
 	public string destroy_tag;
 

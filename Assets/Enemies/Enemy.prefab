@@ -29,7 +29,36 @@ MonoBehaviour:
   projectile: {fileID: 282500060265223958, guid: df161d0e303c8a746a45e9dfe427d0cd,
     type: 3}
   trackingSpeed: 0.1
-  backstabSensitivity: 0.9
+  projectileSpeed: 3
+  resetTime: 2
+  playerEnteredEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7894332904342382516}
+        m_MethodName: CancelReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  viewResetEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7894332904342382516}
+        m_MethodName: ResetPosition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7894332903410585259
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8590e69dbc187144b936f6dbeee960ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 50
+  SkullRotateSpeed: 50
+  ResetViewSpeed: 0.1
 --- !u!1 &7894332904704895854
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,11 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  viewAngle: 75
-  viewDistance: 7
-  trackingSpeed: 0.1
   backstabSensitivity: 0.9
-  spawnOnDeath: {fileID: 0}
+  spawnOnDeath: {fileID: 5686310645082798500, guid: a5c16a08eec8cd24f9da5c4e95866f87,
+    type: 3}
 --- !u!54 &7894332904812549534
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -499,36 +527,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 71.530205
       objectReference: {fileID: 0}
-    - target: {fileID: -1504981713932161579, guid: a7e8e2c957569e7428842eed6854cc2f,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 5561349426305759274, guid: a7e8e2c957569e7428842eed6854cc2f,
-        type: 3}
-    - target: {fileID: -1504981713932161579, guid: a7e8e2c957569e7428842eed6854cc2f,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1504981713932161579, guid: a7e8e2c957569e7428842eed6854cc2f,
-        type: 3}
-      propertyPath: m_ReceiveShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1504981713932161579, guid: a7e8e2c957569e7428842eed6854cc2f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: a7e8e2c957569e7428842eed6854cc2f,
         type: 3}
       propertyPath: m_Name
       value: cone
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: a7e8e2c957569e7428842eed6854cc2f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -1504981713932161579, guid: a7e8e2c957569e7428842eed6854cc2f, type: 3}
@@ -625,23 +627,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: ab8c115828b374c459a9d37d8e58f9c5,
         type: 3}
-      propertyPath: m_ReceiveShadows
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: ab8c115828b374c459a9d37d8e58f9c5,
         type: 3}
-      propertyPath: m_CastShadows
+      propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: ab8c115828b374c459a9d37d8e58f9c5,
         type: 3}
       propertyPath: m_Name
       value: skull
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: ab8c115828b374c459a9d37d8e58f9c5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab8c115828b374c459a9d37d8e58f9c5, type: 3}
