@@ -1592,7 +1592,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2317262454654680246, guid: 3a64688060b68b641bd7d999fd7f5a00, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3a64688060b68b641bd7d999fd7f5a00, type: 3}
 --- !u!1001 &1900999234
 PrefabInstance:
@@ -1838,22 +1839,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7894332904342382516, guid: 23bfc0526d7a90f4a92800150b61da02,
-        type: 3}
-      propertyPath: deathItem
-      value: 
-      objectReference: {fileID: 5686310645082798500, guid: a5c16a08eec8cd24f9da5c4e95866f87,
-        type: 3}
     - target: {fileID: 7894332904812549533, guid: 23bfc0526d7a90f4a92800150b61da02,
         type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 386723308}
-    - target: {fileID: 7894332904812549533, guid: 23bfc0526d7a90f4a92800150b61da02,
-        type: 3}
-      propertyPath: spawnOnDeath
-      value: 
-      objectReference: {fileID: 5686310645082798500, guid: a5c16a08eec8cd24f9da5c4e95866f87,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23bfc0526d7a90f4a92800150b61da02, type: 3}
