@@ -164,13 +164,13 @@ public class CameraFollow : MonoBehaviour
 		//Calculate camera distance from player
 		float distance_prev = (player_pos - waypoints[prev].position).magnitude;
 		float distance_next = (player_pos - waypoints[next].position).magnitude;
-		float distance_frac_next = distance_next / (distance_next + distance_prev);
-		float distance_frac_prev = distance_prev / (distance_next + distance_prev);
+		float distance_frac_next = distance_prev / (distance_next + distance_prev);
+		float distance_frac_prev = distance_next / (distance_next + distance_prev);
 		float distance_avg = 0;
 		if (waypoints[nex].GetComponent<CameraWaypoint>().distance > 0) { distance_avg += distance_frac_next * waypoints[nex].GetComponent<CameraWaypoint>().distance; }
 		else { distance_avg += distance_frac_next * distance; }
 		if (waypoints[prev].GetComponent<CameraWaypoint>().distance > 0) { distance_avg += distance_frac_prev * waypoints[prev].GetComponent<CameraWaypoint>().distance; }
-		else { distance_avg += distance_frac_next * distance; }
+		else { distance_avg += distance_frac_prev * distance; }
 
 		if (player_distance_waypoint >= distance_avg)
 		{
