@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
+using UnityEngine.Rendering.PostProcessing;
 
 public class DatalogController : MonoBehaviour
 {
@@ -12,7 +12,12 @@ public class DatalogController : MonoBehaviour
     // Testing different styles of text management
     public bool listens = false;
     public Text messageTextUI;
+    public PostProcessVolume ppVolume;
     
+    private float aperture = 0.05f;
+    private float focalLength = 300f;
+    private float defaultFocalLength = 1f;
+    private float defaultAperature = 1f;
     private bool triggered = false;
 
     // Potentially to freeze the game while this is being printed
@@ -26,8 +31,6 @@ public class DatalogController : MonoBehaviour
                 datalogTriggered?.Invoke(); // Potentially could be using time.timescale(0). Discuss with group about best strategy to pause game
 
                 DisplayMessage();
-
-                
             }
         }
     }
@@ -44,6 +47,13 @@ public class DatalogController : MonoBehaviour
     }
 
     private void DisplayMessage() {
+        var dof = ScriptableObject.CreateInstance<DepthOfField>();
+        dof.aperture.Override(aperture);
+        dof.focalLength.Override(focalLength);
+        dof.enabled.Override(true);
+
+        ppVolume = PostProcessManager.instance.QuickVolume(0, 0, dof);
+
         foreach (string sentence in sentences) {
             // StopAllCoroutines();
             // StartCoroutine(TypeSentence(sentence));
