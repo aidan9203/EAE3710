@@ -813,5 +813,10 @@ PrefabInstance:
       propertyPath: messageTextUI
       value: 
       objectReference: {fileID: 1420930490}
+    - target: {fileID: 7636632297727041518, guid: 34c7d6d8362cbd745b4c3a59847d0613,
+        type: 3}
+      propertyPath: ppVolume
+      value: 
+      objectReference: {fileID: 174142020}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34c7d6d8362cbd745b4c3a59847d0613, type: 3}
