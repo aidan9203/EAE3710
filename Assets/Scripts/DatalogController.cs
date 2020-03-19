@@ -16,12 +16,23 @@ public class DatalogController : MonoBehaviour
     
     private float aperture = 0.05f;
     private float focalLength = 300f;
-    private float defaultFocalLength = 1f;
-    private float defaultAperature = 1f;
+    private float blurTime = 2f;
     private bool triggered = false;
+
+    PostProcessVolume blurVolume;
 
     // Potentially to freeze the game while this is being printed
     public UnityEvent datalogTriggered;
+
+    private void Start() {
+        var dof = ScriptableObject.CreateInstance<DepthOfField>();
+        dof.aperture.Override(aperture);
+        dof.focalLength.Override(focalLength);
+        dof.enabled.Override(true);
+
+        blurVolume = PostProcessManager.instance.QuickVolume(0, 0, dof);
+        blurVolume.weight = 0;
+    }
 
     private void OnTriggerEnter(Collider other) {
         if(!listens) {
@@ -52,7 +63,13 @@ public class DatalogController : MonoBehaviour
         dof.focalLength.Override(focalLength);
         dof.enabled.Override(true);
 
-        ppVolume = PostProcessManager.instance.QuickVolume(0, 0, dof);
+        ppVolume = blurVolume;
+
+        // Blurs scene
+        LeanTween.value(gameObject, TweenCallback, 0f, 1f, blurTime);
+
+        // Unblurs scene
+        LeanTween.value(gameObject, TweenCallback, 1f, 0f, blurTime);
 
         foreach (string sentence in sentences) {
             // StopAllCoroutines();
@@ -60,6 +77,10 @@ public class DatalogController : MonoBehaviour
             messageTextUI.text = sentence;
             messageTextUI.gameObject.SetActive(true);
             Debug.Log(sentence);
+        }
+
+        void TweenCallback(float newWeight) {
+            blurVolume.weight = newWeight;
         }
     }
 
@@ -71,4 +92,6 @@ public class DatalogController : MonoBehaviour
             yield return null;
         }
     }
+
+    
 }
