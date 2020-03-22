@@ -13,12 +13,14 @@ public class DatalogController : MonoBehaviour
     // Testing different styles of text management
     public bool listens = false;
     public TextMeshProUGUI messageTextUI;
+    public GameObject panelUI;
     public PostProcessVolume ppVolume;
     
     private float aperture = 0.05f;
     private float focalLength = 300f;
     private float blurTime = 2f;
     private bool triggered = false; // Prevent duplicate text boxes
+    private int currentSentenceIndex = 0;
 
     PostProcessVolume blurVolume;
 
@@ -35,40 +37,60 @@ public class DatalogController : MonoBehaviour
         blurVolume.weight = 0;
     }
 
+    private void Update() {
+        if(triggered) {
+            // Listen for 'e' presses while the game is paused
+            if(Input.GetKeyDown(KeyCode.E)) {
+                if(currentSentenceIndex == 0) {
+                    DisplayFirstSentence();
+                }
+                else {
+                    DisplayNextSentence();
+                }
+            }
+        }
+    }
+
     private void OnTriggerStay(Collider other) {
         if(Input.GetKeyDown(KeyCode.E) && other.CompareTag("Player")) {
             // Preventing multiple activations
             if(!triggered) {
                 triggered = true;
-                DisplayMessage();
+                Time.timeScale = 0;
             }
         }
     }
 
-    private void DisplayMessage() {
-        ppVolume = blurVolume;
-        
-        // Blurs scene
-        LeanTween.value(gameObject, TweenCallback, 0f, 1f, blurTime);
+    private void DisplayFirstSentence() {
+        if(sentences.Length > 0) {
+            panelUI.SetActive(true);
 
-        foreach (string sentence in sentences) {
-            // StopAllCoroutines();
-            // StartCoroutine(TypeSentence(sentence));
-            messageTextUI.text = sentence;
-            messageTextUI.gameObject.SetActive(true);
-            Debug.Log(sentence);
+            messageTextUI.text = sentences[currentSentenceIndex];
+            currentSentenceIndex++;
         }
-
+        else {
+            Debug.LogWarning("There are no sentences for this trigger. Consider adding one.");
+        }
+        
+        // ppVolume = blurVolume;
+        // Blurs scene
+        // LeanTween.value(gameObject, TweenCallback, 0f, 1f, blurTime
         // Unblurs scene
         //LeanTween.value(gameObject, TweenCallback, 1f, 0f, blurTime);
     }
 
-    // Pulled from Brackey's tutorial: https://www.youtube.com/watch?v=_nRzoTzeyxU
-    private IEnumerator TypeSentence(string sentence) {
-        messageTextUI.text = "";
-        foreach(char letter in sentence.ToCharArray()) {
-            messageTextUI.text += letter;
-            yield return null;
+    private void DisplayNextSentence() {
+        if(currentSentenceIndex < sentences.Length) {
+            messageTextUI.text = sentences[currentSentenceIndex];
+            currentSentenceIndex++;
+        }
+        else {
+            // Hide UI elements and reset the state
+            Time.timeScale = 1;
+            messageTextUI.text = "";
+            panelUI.SetActive(false);
+            currentSentenceIndex = 0;
+            triggered = false;
         }
     }
 
