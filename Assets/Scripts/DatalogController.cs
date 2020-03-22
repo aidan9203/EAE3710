@@ -13,13 +13,14 @@ public class DatalogController : MonoBehaviour
     // Testing different styles of text management
     public bool listens = false;
     public TextMeshProUGUI messageTextUI;
+    public GameObject notificationText;
     public GameObject panelUI;
     public PostProcessVolume ppVolume;
     
     private float aperture = 0.05f;
     private float focalLength = 300f;
     private float blurTime = 2f;
-    private bool triggered = false; // Prevent duplicate text boxes
+    private bool triggered = false;
     private int currentSentenceIndex = 0;
 
     PostProcessVolume blurVolume;
@@ -51,13 +52,25 @@ public class DatalogController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Player")) {
+            notificationText.SetActive(true);
+        }
+    }
+
     private void OnTriggerStay(Collider other) {
         if(Input.GetKeyDown(KeyCode.E) && other.CompareTag("Player")) {
-            // Preventing multiple activations
             if(!triggered) {
+                // No need to display the sentence here, Update will call and handle it
                 triggered = true;
                 Time.timeScale = 0;
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if(other.CompareTag("Player")) {
+            notificationText.SetActive(false);
         }
     }
 
