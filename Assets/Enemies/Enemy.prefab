@@ -31,6 +31,7 @@ MonoBehaviour:
   trackingSpeed: 0.1
   projectileSpeed: 3
   resetTime: 2
+  timeBetweenShots: 0.2
   playerEnteredEvent:
     m_PersistentCalls:
       m_Calls:

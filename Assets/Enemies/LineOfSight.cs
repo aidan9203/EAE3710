@@ -10,8 +10,9 @@ public class LineOfSight : MonoBehaviour {
     public float projectileSpeed = 3.0f;
     [Range(1, 5)]
     public float resetTime = 2.0f;
+    [Range(0, 1)]
+    public float timeBetweenShots = 0.5f;
     private Transform parentTransform;
-    private Transform initialTransform;
     private bool playerVisible;
 
     public UnityEvent playerEnteredEvent;
@@ -19,16 +20,16 @@ public class LineOfSight : MonoBehaviour {
     
 
     void Start() {
-        initialTransform = transform;
         parentTransform = transform.parent;
     }
 
     private void OnTriggerEnter(Collider collider) {
         if(collider.CompareTag("Player")) {
+            StopAllCoroutines(); // Prevents resetting view
             playerEnteredEvent?.Invoke();
-            GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
-            spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
+            
             playerVisible = true;
+            InvokeRepeating("FireProjectiles", 0, timeBetweenShots);
         }
     }
 
@@ -37,14 +38,21 @@ public class LineOfSight : MonoBehaviour {
         if (collider.CompareTag("Player")) {
             Quaternion newAngle = Quaternion.LookRotation(collider.gameObject.transform.position - parentTransform.position);
             parentTransform.rotation = Quaternion.Slerp(parentTransform.rotation, newAngle, trackingSpeed);
+            
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if(other.CompareTag("Player")) {
             playerVisible = false;
+            CancelInvoke();
             StartCoroutine("ResetView");
         }
+    }
+
+    void FireProjectiles() {
+        GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
+        spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
     }
 
     IEnumerator ResetView() {
