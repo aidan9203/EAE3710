@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		//Drilling
-		drill.SetActive(drill_enable);
+			drill.SetActive(drill_enable);
 		if (drill_enable)
 		{
 			drill.transform.localEulerAngles += drill_speed * Time.deltaTime;
