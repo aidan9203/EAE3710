@@ -252,7 +252,6 @@ public class CameraFollow : MonoBehaviour
 			}
 			else
 			{
-
 				if (dir_diff.magnitude > 1)
 				{
 					pos_reversed = target.transform.position;
