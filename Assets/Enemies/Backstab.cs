@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Backstab : MonoBehaviour
 {
-    public Transform playerTransform;
+    
     [Range(0, 1)]
-    public float backstabSensitivity = 0.9f;
+    public float backstabSensitivity = 0.8f;
     public GameObject spawnOnDeath;
 
+    public Transform playerTransform;
     private GameObject parentReference;
     private bool deathItemSpawned = false;
 
     void Start() {
-        parentReference = transform.parent.gameObject;    
+        parentReference = transform.parent.gameObject;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 	void OnTriggerEnter(Collider collider)
@@ -59,7 +61,9 @@ public class Backstab : MonoBehaviour
 
     private bool IsBehindEnemy()
     {
-        if (Vector3.Dot(transform.forward.normalized, -(playerTransform.forward).normalized) > backstabSensitivity)
+        // When we changed the mesh, for whatever reason it's default angle is set 90 degrees from the player. So instead of checking if
+        // the angles are the same, we check if they're close to right angles with each other
+        if (Vector3.Dot(transform.forward.normalized, -(playerTransform.forward).normalized) < (1 - backstabSensitivity))
         {
             //  Play animation here
             return true;
