@@ -31,11 +31,11 @@ public class GravityChange : MonoBehaviour
     {
         if (!trigger_only)
         {
-            if (collision.collider.tag == "PlayerTread")
+            if (collision.collider.tag == "Player")
             {
-                collision.collider.transform.parent.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                collision.collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
             }
-            if (collision.collider.tag == "Breakable")
+            else if (collision.collider.tag == "Breakable")
             {
                 collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
             }
@@ -44,11 +44,11 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "PlayerTread")
+        if (collider.tag == "Player")
         {
-            collider.transform.parent.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
         }
-        if (collider.tag == "Breakable")
+        else if (collider.tag == "Breakable")
         {
             gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
         }
