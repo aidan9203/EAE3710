@@ -96,12 +96,12 @@ public class PlayerMovement : MonoBehaviour
 			{
 				if (rotation < rotation_goal)
 				{
-					rotation += 500 * Time.deltaTime;
+					rotation += 1000 * Time.deltaTime;
 					if (rotation > rotation_goal) { rotation = rotation_goal; }
 				}
 				else
 				{
-					rotation -= 500 * Time.deltaTime;
+					rotation -= 1000 * Time.deltaTime;
 					if (rotation < rotation_goal) { rotation = rotation_goal; }
 				}
 			}
@@ -109,12 +109,12 @@ public class PlayerMovement : MonoBehaviour
 			{
 				if (rotation < rotation_goal)
 				{
-					rotation -= 500 * Time.deltaTime;
+					rotation -= 1000 * Time.deltaTime;
 					if (rotation < -180) { rotation += 360; }
 				}
 				else
 				{
-					rotation += 500 * Time.deltaTime;
+					rotation += 1000 * Time.deltaTime;
 					if (rotation > 180) { rotation -= 360; }
 				}
 			}
