@@ -67,6 +67,7 @@ public class CameraFollow : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+		Debug.Log(previous + "\t" + next);
 		//Draw debug lines
 		for (int c = 0; c < num_waypoints - 1; c++)
 		{
