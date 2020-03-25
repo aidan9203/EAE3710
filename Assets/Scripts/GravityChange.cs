@@ -13,6 +13,8 @@ public class GravityChange : MonoBehaviour
     public float gravity_y;
     public float gravity_z;
 
+    public bool trigger_only;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,13 +29,16 @@ public class GravityChange : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "PlayerTread")
+        if (!trigger_only)
         {
-            collision.collider.transform.parent.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
-        }
-        if (collision.collider.tag == "Breakable")
-        {
-            collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            if (collision.collider.tag == "PlayerTread")
+            {
+                collision.collider.transform.parent.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            }
+            if (collision.collider.tag == "Breakable")
+            {
+                collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            }
         }
     }
 
