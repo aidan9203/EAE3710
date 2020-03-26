@@ -41,9 +41,9 @@ public class CameraFollow : MonoBehaviour
 	Vector3 position_prev;
 	Vector3 position_next;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	// Start is called before the first frame update
+	void Start()
+	{
 		tf = GetComponent<Transform>();
 
 		//Search for waypoints if they are not defined
@@ -67,7 +67,7 @@ public class CameraFollow : MonoBehaviour
 
 	// Update is called once per frame
 	void Update()
-    {
+	{
 		//Draw debug lines
 		for (int c = 0; c < num_waypoints - 1; c++)
 		{
@@ -155,7 +155,7 @@ public class CameraFollow : MonoBehaviour
 		else if (nex >= num_waypoints) { nex -= num_waypoints; }
 		if (prev < 0) { prev += num_waypoints; }
 		else if (prev >= num_waypoints) { prev -= num_waypoints; }
-		
+
 		//Find point along waypoint that is distance from the target (Code from CS4600 Raytracing assignment)
 		Vector3 player_pos = target.GetComponent<Transform>().position;
 		Vector3 player_direction = player_pos - waypoints[prev].position;
@@ -207,7 +207,7 @@ public class CameraFollow : MonoBehaviour
 		Vector3 player_pos = target.GetComponent<Transform>().position;
 		int min_index = -1;
 		float min_distance = float.MaxValue;
-		for(int w = 1; w < num_waypoints - 1; w++)
+		for (int w = 1; w < num_waypoints - 1; w++)
 		{
 			float distance_current = Mathf.Abs((waypoints[w].position - player_pos).magnitude);
 			if (distance_current < min_distance)
@@ -240,7 +240,7 @@ public class CameraFollow : MonoBehaviour
 	{
 		Vector3 dir_player = -target.GetComponent<Transform>().forward;
 		Vector3 dir_normal = Vector3.Normalize(waypoints[next].position - waypoints[previous].position) - dir_player;
-		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous].position - waypoints[next].position) - dir_player;		
+		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous].position - waypoints[next].position) - dir_player;
 
 		if (queue_reversal)
 		{
