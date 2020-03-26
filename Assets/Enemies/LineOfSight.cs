@@ -12,6 +12,8 @@ public class LineOfSight : MonoBehaviour {
     public float resetTime = 2.0f;
     [Range(0, 1)]
     public float timeBetweenShots = 0.5f;
+    private AudioSource shotSound;
+
     private Transform parentTransform;
     private bool playerVisible;
 
@@ -21,6 +23,7 @@ public class LineOfSight : MonoBehaviour {
 
     void Start() {
         parentTransform = transform.parent;
+        shotSound = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider collider) {
@@ -38,7 +41,6 @@ public class LineOfSight : MonoBehaviour {
         if (collider.CompareTag("Player")) {
             Quaternion newAngle = Quaternion.LookRotation(collider.gameObject.transform.position - parentTransform.position);
             parentTransform.rotation = Quaternion.Slerp(parentTransform.rotation, newAngle, trackingSpeed);
-            
         }
     }
 
@@ -53,6 +55,7 @@ public class LineOfSight : MonoBehaviour {
     void FireProjectiles() {
         GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
         spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
+        shotSound.Play();
     }
 
     IEnumerator ResetView() {
