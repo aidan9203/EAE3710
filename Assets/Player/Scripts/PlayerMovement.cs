@@ -161,9 +161,9 @@ public class PlayerMovement : MonoBehaviour
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 
 		//Apply motion relative to orientation/gravity
-		float vel_x = 100 * speed * move_dir.x * Time.deltaTime + (Mathf.Abs(rb.velocity.x) + 20 * Time.deltaTime) * gravity.x;
-		float vel_y = 100 * speed * move_dir.y * Time.deltaTime + (Mathf.Abs(rb.velocity.y) + 20 * Time.deltaTime) * gravity.y;
-		float vel_z = 100 * speed * move_dir.z * Time.deltaTime + (Mathf.Abs(rb.velocity.z) + 20 * Time.deltaTime) * gravity.z;
+		float vel_x = speed * move_dir.x + (Mathf.Abs(rb.velocity.x) + 20 * Time.deltaTime) * gravity.x;
+		float vel_y = speed * move_dir.y + (Mathf.Abs(rb.velocity.y) + 20 * Time.deltaTime) * gravity.y;
+		float vel_z = speed * move_dir.z + (Mathf.Abs(rb.velocity.z) + 20 * Time.deltaTime) * gravity.z;
 		rb.velocity = new Vector3(vel_x, vel_y, vel_z);
 	}
 

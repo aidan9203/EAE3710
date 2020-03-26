@@ -454,7 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera_prefab: {fileID: 2317262454654680240, guid: 3a64688060b68b641bd7d999fd7f5a00,
     type: 3}
-  speed: 3
+  speed: 5
   corners:
   - {fileID: 3122454573809867232}
   - {fileID: 7262914927202106563}
