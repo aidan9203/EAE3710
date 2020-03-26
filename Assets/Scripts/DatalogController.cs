@@ -10,14 +10,12 @@ public class DatalogController : MonoBehaviour
 {
     [TextArea(3, 4)]
     public string[] sentences;
-    public TextMeshProUGUI messageTextUI;
+    public TextMeshProUGUI messageText;
     public GameObject notificationText;
     public GameObject panelUI;
     
     private bool triggered = false;
     private int currentSentenceIndex = 0;
-
-    PostProcessVolume blurVolume;
 
     // Potentially to freeze the game while this is being printed
     public UnityEvent datalogTriggered;
@@ -62,7 +60,7 @@ public class DatalogController : MonoBehaviour
         if(sentences.Length > 0) {
             panelUI.SetActive(true);
 
-            messageTextUI.text = sentences[currentSentenceIndex];
+            messageText.text = sentences[currentSentenceIndex];
             currentSentenceIndex++;
         }
         else {
@@ -72,13 +70,13 @@ public class DatalogController : MonoBehaviour
 
     private void DisplayNextSentence() {
         if(currentSentenceIndex < sentences.Length) {
-            messageTextUI.text = sentences[currentSentenceIndex];
+            messageText.text = sentences[currentSentenceIndex];
             currentSentenceIndex++;
         }
         else {
             // Hide UI elements and reset the state
             Time.timeScale = 1;
-            messageTextUI.text = "";
+            messageText.text = "";
             panelUI.SetActive(false);
             currentSentenceIndex = 0;
             triggered = false;
