@@ -60,7 +60,6 @@ public class CameraFollow : MonoBehaviour
 		}
 		if (auto_waypoint) { ResetWaypoints(); }
 		tf.position = FindPoint();
-		transform.rotation = Quaternion.LookRotation((target.transform.position - tf.position).normalized, target.transform.up);
 		position_prev = tf.position;
 		position_next = tf.position;
 	}
