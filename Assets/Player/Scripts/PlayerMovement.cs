@@ -40,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
 	AudioSource[] walk_sounds;
 	float walk_timer = 0;
 
+	Vector3 checkpoint_pos;
+	Quaternion checkpoint_rot;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -51,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
 		cam.GetComponent<CameraFollow>().target = this.gameObject;
 		walk_animation = GetComponent<Animation>();
 		walk_sounds = GetComponents<AudioSource>();
+		checkpoint_pos = transform.position;
+		checkpoint_rot = transform.rotation;
 	}
 
 	// Update is called once per frame
@@ -58,7 +63,9 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (!alive)
 		{
-			this.gameObject.SetActive(false);
+			transform.position = checkpoint_pos;
+			transform.rotation = checkpoint_rot;
+			cam.GetComponent<CameraFollow>().ResetWaypoints();
 		}
 
 		//Drilling
@@ -178,6 +185,15 @@ public class PlayerMovement : MonoBehaviour
 		{
 			drill_enable = true;
 			GameObject.Destroy(collision.gameObject);
+		}
+	}
+
+	public void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "Checkpoint")
+		{
+			checkpoint_pos = transform.position;
+			checkpoint_rot = transform.rotation;
 		}
 	}
 }

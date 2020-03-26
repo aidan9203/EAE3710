@@ -201,7 +201,7 @@ public class CameraFollow : MonoBehaviour
 	/// <summary>
 	/// Resets the waypoints to the two closest to the player
 	/// </summary>
-	private void ResetWaypoints()
+	public void ResetWaypoints()
 	{
 		if (num_waypoints <= 2) { return; }
 		Vector3 player_pos = target.GetComponent<Transform>().position;
