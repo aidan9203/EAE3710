@@ -464,6 +464,7 @@ MonoBehaviour:
   drill_enable: 1
   alive: 1
   keys: []
+  finish_level: Main Menu
 --- !u!54 &314398753169390053
 Rigidbody:
   m_ObjectHideFlags: 0

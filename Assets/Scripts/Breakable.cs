@@ -32,7 +32,7 @@ public class Breakable : MonoBehaviour
     {
         if (collider.tag == destroy_tag) {
             rb.isKinematic = false;
-            gravity = collider.transform.parent.GetComponent<PlayerMovement>().GetGravity();
+            gravity = collider.GetComponent<PlayerMovement>().GetGravity();
         }
     }
 
@@ -41,7 +41,7 @@ public class Breakable : MonoBehaviour
 		if (collision.collider.tag == destroy_tag)
 		{
 			rb.isKinematic = false;
-			gravity = collision.collider.transform.parent.GetComponent<PlayerMovement>().GetGravity();
+			gravity = collision.collider.GetComponent<PlayerMovement>().GetGravity();
 		}
 	}
 
