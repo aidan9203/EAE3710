@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 0.03
+  speed: 0.05
   distance: 6
   loop: 0
   auto_waypoint: 0
