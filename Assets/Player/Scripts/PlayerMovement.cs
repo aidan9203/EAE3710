@@ -6,9 +6,9 @@
  * keys[] is the list of key codes the player has collected
  */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -40,6 +40,12 @@ public class PlayerMovement : MonoBehaviour
 	AudioSource[] walk_sounds;
 	float walk_timer = 0;
 
+	Vector3 checkpoint_pos;
+	Quaternion checkpoint_rot;
+	Vector3 checkpoint_gravity;
+
+	public string finish_level;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -51,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
 		cam.GetComponent<CameraFollow>().target = this.gameObject;
 		walk_animation = GetComponent<Animation>();
 		walk_sounds = GetComponents<AudioSource>();
+		checkpoint_pos = transform.position;
+		checkpoint_rot = transform.rotation;
+		checkpoint_gravity = Vector3.down;
 	}
 
 	// Update is called once per frame
@@ -58,7 +67,13 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (!alive)
 		{
-			this.gameObject.SetActive(false);
+			alive = true;
+			gravity = checkpoint_gravity;
+			normal = -checkpoint_gravity;
+			gravity_change = true;
+			transform.position = checkpoint_pos - 0.1f * checkpoint_gravity;
+			transform.rotation = checkpoint_rot;
+			cam.GetComponent<CameraFollow>().ResetWaypoints();
 		}
 
 		//Drilling
@@ -178,6 +193,20 @@ public class PlayerMovement : MonoBehaviour
 		{
 			drill_enable = true;
 			GameObject.Destroy(collision.gameObject);
+		}
+		else if (collision.gameObject.tag == "Finish")
+		{
+			SceneManager.LoadScene(finish_level);
+		}
+	}
+
+	public void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "Checkpoint")
+		{
+			checkpoint_pos = transform.position;
+			checkpoint_rot = transform.rotation;
+			checkpoint_gravity = gravity;
 		}
 	}
 }

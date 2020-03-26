@@ -201,7 +201,7 @@ public class CameraFollow : MonoBehaviour
 	/// <summary>
 	/// Resets the waypoints to the two closest to the player
 	/// </summary>
-	private void ResetWaypoints()
+	public void ResetWaypoints()
 	{
 		if (num_waypoints <= 2) { return; }
 		Vector3 player_pos = target.GetComponent<Transform>().position;
@@ -238,6 +238,7 @@ public class CameraFollow : MonoBehaviour
 	/// </summary>
 	private void UpdateDirection()
 	{
+		return; //DISABLED TEMPORARILY
 		Vector3 dir_player = -target.GetComponent<Transform>().forward;
 		Vector3 dir_normal = Vector3.Normalize(waypoints[next].position - waypoints[previous].position) - dir_player;
 		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous].position - waypoints[next].position) - dir_player;

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - PlayerTread
   - FallingStalactite
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
