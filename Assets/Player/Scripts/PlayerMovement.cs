@@ -85,43 +85,24 @@ public class PlayerMovement : MonoBehaviour
 		input_vertical = Mathf.Clamp(input_vertical, -1, 1);
 		input_horizontal = Mathf.Clamp(input_horizontal, -1, 1);
 
-		float input_rotate = input_rotate = cam.transform.eulerAngles.y;
+		//Calculate the forward direction based on the camera's direction
+		Vector3 move_dir_current = transform.forward;
+		Vector3 move_dir_forward = cam.transform.forward;
+		Vector3 move_dir_right = cam.transform.right;
+		if (gravity.x != 0) { move_dir_forward.x = 0; move_dir_right.x = 0; move_dir_current.x = 0; }
+		else if (gravity.y != 0) { move_dir_forward.y = 0; move_dir_right.y = 0; move_dir_current.y = 0; }
+		else if (gravity.z != 0) { move_dir_forward.z = 0; move_dir_right.z = 0; move_dir_current.z = 0; }
+		move_dir_forward = move_dir_forward.normalized;
+		move_dir_right = move_dir_right.normalized;
+		move_dir_current = move_dir_current.normalized;
 
-		//Set and interpolate rotation
+		Vector3 move_dir = (move_dir_forward * input_vertical + move_dir_right * input_horizontal).normalized;
+
+		//Interpolate rotation
 		if (input_horizontal != 0 || input_vertical != 0)
 		{
-			float rotation_goal = Mathf.Rad2Deg * Mathf.Atan2(-input_horizontal * Mathf.Cos(Mathf.Deg2Rad * input_rotate) - input_vertical * Mathf.Sin(Mathf.Deg2Rad * input_rotate),
-				-input_vertical * Mathf.Cos(Mathf.Deg2Rad * input_rotate) + input_horizontal * Mathf.Sin(Mathf.Deg2Rad * input_rotate));
-			if (Mathf.Abs(rotation - rotation_goal) <= 180)
-			{
-				if (rotation < rotation_goal)
-				{
-					rotation += 1000 * Time.deltaTime;
-					if (rotation > rotation_goal) { rotation = rotation_goal; }
-				}
-				else
-				{
-					rotation -= 1000 * Time.deltaTime;
-					if (rotation < rotation_goal) { rotation = rotation_goal; }
-				}
-			}
-			else
-			{
-				if (rotation < rotation_goal)
-				{
-					rotation -= 1000 * Time.deltaTime;
-					if (rotation < -180) { rotation += 360; }
-				}
-				else
-				{
-					rotation += 1000 * Time.deltaTime;
-					if (rotation > 180) { rotation -= 360; }
-				}
-			}
+			move_dir_current = move_dir;
 		}
-
-		float move_vertical = Mathf.Max(Mathf.Abs(input_horizontal), Mathf.Abs(input_vertical)) * Mathf.Cos(Mathf.Deg2Rad * rotation);
-		float move_horizontal = Mathf.Max(Mathf.Abs(input_horizontal), Mathf.Abs(input_vertical)) * Mathf.Sin(Mathf.Deg2Rad * rotation);
 
 		//Orient the player with gravity
 		if (!gravity_change)
@@ -140,16 +121,14 @@ public class PlayerMovement : MonoBehaviour
 			else { normal = -gravity; }
 		}
 
-		tf.up = Vector3.Lerp(tf.up, normal, 0.05f);
-		tf.RotateAround(tf.position, tf.up, rotation);
+		tf.rotation = Quaternion.LookRotation(move_dir_current, normal);
 		
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 
 		//Apply motion relative to orientation/gravity
-		float vel_x = speed * (-Mathf.Abs(tf.up.y) * move_horizontal - Mathf.Abs(tf.up.z) * move_horizontal) + (Mathf.Abs(rb.velocity.x) + 20 * Time.deltaTime) * gravity.x;
-		float vel_y = speed * (tf.up.x * move_horizontal + tf.up.z * move_vertical) + (Mathf.Abs(rb.velocity.y) + 20 * Time.deltaTime) * gravity.y;
-		float vel_z = speed * (-tf.up.y * move_vertical - Mathf.Abs(tf.up.x) * move_vertical) + (Mathf.Abs(rb.velocity.z) + 20 * Time.deltaTime) * gravity.z;
-
+		float vel_x = 100 * speed * move_dir.x * Time.deltaTime + (Mathf.Abs(rb.velocity.x) + 20 * Time.deltaTime) * gravity.x;
+		float vel_y = 100 * speed * move_dir.y * Time.deltaTime + (Mathf.Abs(rb.velocity.y) + 20 * Time.deltaTime) * gravity.y;
+		float vel_z = 100 * speed * move_dir.z * Time.deltaTime + (Mathf.Abs(rb.velocity.z) + 20 * Time.deltaTime) * gravity.z;
 		rb.velocity = new Vector3(vel_x, vel_y, vel_z);
 	}
 
