@@ -238,10 +238,21 @@ public class CameraFollow : MonoBehaviour
 	/// </summary>
 	private void UpdateDirection()
 	{
-		return; //DISABLED TEMPORARILY
-		Vector3 dir_player = -target.GetComponent<Transform>().forward;
-		Vector3 dir_normal = Vector3.Normalize(waypoints[next].position - waypoints[previous].position) - dir_player;
-		Vector3 dir_reversed = Vector3.Normalize(waypoints[previous].position - waypoints[next].position) - dir_player;
+		Vector3 dir_player = -target.GetComponent<Transform>().right;
+		Vector3 dir_normal = waypoints[next].position - waypoints[previous].position;
+		Vector3 dir_reversed = waypoints[previous].position - waypoints[next].position;
+
+		//Align directions with gravity
+		Vector3 gravity = target.GetComponent<PlayerMovement>().GetGravity();
+		if (gravity.x != 0) { dir_player.x = 0; dir_normal.x = 0; dir_reversed.x = 0; }
+		else if (gravity.y != 0) { dir_player.y = 0; dir_normal.y = 0; dir_reversed.y = 0; }
+		else if (gravity.z != 0) { dir_player.z = 0; dir_normal.z = 0; dir_reversed.z = 0; }
+		dir_player = dir_player.normalized;
+		dir_normal = dir_normal.normalized;
+		dir_reversed = dir_reversed.normalized;
+
+		dir_normal -= dir_player;
+		dir_reversed -= dir_player;
 
 		if (queue_reversal)
 		{
