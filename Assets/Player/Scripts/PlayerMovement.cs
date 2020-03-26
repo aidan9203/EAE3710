@@ -33,9 +33,10 @@ public class PlayerMovement : MonoBehaviour
 	public bool alive = true;
 
 	Vector3 normal = Vector3.up;
-	float rotation = 0;
 
 	public List<string> keys = new List<string>();
+
+	Animation walk_animation;
 
 	// Start is called before the first frame update
 	void Start()
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
 		drill.SetActive(drill_enable);
 		cam = GameObject.Instantiate(camera_prefab, tf.position, Quaternion.Euler(Vector3.zero));
 		cam.GetComponent<CameraFollow>().target = this.gameObject;
+		walk_animation = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -86,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 		input_horizontal = Mathf.Clamp(input_horizontal, -1, 1);
 
 		//Calculate the forward direction based on the camera's direction
-		Vector3 move_dir_current = transform.forward;
+		Vector3 move_dir_current = -transform.right;
 		Vector3 move_dir_forward = cam.transform.forward;
 		Vector3 move_dir_right = cam.transform.right;
 		if (gravity.x != 0) { move_dir_forward.x = 0; move_dir_right.x = 0; move_dir_current.x = 0; }
@@ -101,7 +103,13 @@ public class PlayerMovement : MonoBehaviour
 		//Interpolate rotation
 		if (input_horizontal != 0 || input_vertical != 0)
 		{
+			walk_animation.Play();
+			walk_animation["Walk Cycle"].speed = rb.velocity.magnitude * 0.5f;
 			move_dir_current = move_dir;
+		}
+		else
+		{
+			walk_animation.Stop();
 		}
 
 		//Orient the player with gravity
@@ -121,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
 			else { normal = -gravity; }
 		}
 
-		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.LookRotation(move_dir_current, normal), 0.1f);
+		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.LookRotation(Vector3.Cross(normal, move_dir_current), normal), 0.2f);
 		
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 

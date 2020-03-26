@@ -309,10 +309,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8949750160294285487}
-  - component: {fileID: 1349362021329714645}
   - component: {fileID: 7331882112990919545}
   - component: {fileID: 314398753169390053}
   - component: {fileID: 5986000010525693864}
+  - component: {fileID: 7783738549269055293}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -345,25 +345,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1349362021329714645
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5361745924458603196}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 65e9842033081154cb3a301a5b52c4e5, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7331882112990919545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera_prefab: {fileID: 2317262454654680240, guid: 3a64688060b68b641bd7d999fd7f5a00,
     type: 3}
-  speed: 5
+  speed: 2
   corners:
   - {fileID: 3122454573809867232}
   - {fileID: 7262914927202106563}
@@ -417,6 +398,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8655128, y: 1.2587919, z: 1.4269614}
   m_Center: {x: -0.25105333, y: 0.6262841, z: 0.00508523}
+--- !u!111 &7783738549269055293
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361745924458603196}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1827226128182048838, guid: ebabe06ab2b073c4ca73108bb7865d91,
+    type: 3}
+  m_Animations:
+  - {fileID: 1827226128182048838, guid: ebabe06ab2b073c4ca73108bb7865d91, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &5598626593349965230
 GameObject:
   m_ObjectHideFlags: 0
