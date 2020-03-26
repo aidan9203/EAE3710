@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	GameObject cam;
 
 	public float speed;
+	public bool isWalking = false;
 
 	public Transform[] corners = new Transform[4];
 
@@ -33,8 +34,7 @@ public class PlayerMovement : MonoBehaviour
 	public bool alive = true;
 
 	Vector3 normal = Vector3.up;
-	float rotation = 0;
-
+	
 	public List<string> keys = new List<string>();
 
 	// Start is called before the first frame update
@@ -97,7 +97,13 @@ public class PlayerMovement : MonoBehaviour
 		move_dir_current = move_dir_current.normalized;
 
 		Vector3 move_dir = (move_dir_forward * input_vertical + move_dir_right * input_horizontal).normalized;
-
+		if(move_dir == Vector3.zero)
+		{
+			isWalking = false;
+		}
+		else{
+			isWalking = true;
+		}
 		//Interpolate rotation
 		if (input_horizontal != 0 || input_vertical != 0)
 		{
