@@ -16,9 +16,13 @@ public class DatalogController : MonoBehaviour
     
     private bool triggered = false;
     private int currentSentenceIndex = 0;
-
+    private ParticleSystem particleSystem;
     // Potentially to freeze the game while this is being printed
     public UnityEvent datalogTriggered;
+
+    private void Start() {
+        particleSystem = GetComponentInChildren<ParticleSystem>();
+    }
 
     private void Update() {
         if(triggered) {
@@ -45,6 +49,9 @@ public class DatalogController : MonoBehaviour
             if(!triggered) {
                 // No need to display the sentence here, Update will call and handle it
                 triggered = true;
+                // Disable particle system after the player has viewed it once.
+                // The player can continue to view the message after finishing
+                particleSystem.Stop();
                 Time.timeScale = 0;
             }
         }
