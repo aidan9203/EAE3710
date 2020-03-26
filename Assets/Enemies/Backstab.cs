@@ -9,7 +9,7 @@ public class Backstab : MonoBehaviour
     public float backstabSensitivity = 0.8f;
     public GameObject spawnOnDeath;
 
-    public Transform playerTransform;
+    private Transform playerTransform;
     private GameObject parentReference;
     private bool deathItemSpawned = false;
 
