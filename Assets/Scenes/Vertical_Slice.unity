@@ -80218,22 +80218,22 @@ PrefabInstance:
     - target: {fileID: 7636632297727041518, guid: 34c7d6d8362cbd745b4c3a59847d0613,
         type: 3}
       propertyPath: sentences.Array.data[0]
-      value: I have arrived at the road that leads to the factory...
+      value: I have arrived at the path to the Factory...
       objectReference: {fileID: 0}
     - target: {fileID: 7636632297727041518, guid: 34c7d6d8362cbd745b4c3a59847d0613,
         type: 3}
       propertyPath: sentences.Array.data[1]
-      value: My legs are not working properly I cant climb up walls...
+      value: My legs have malfunctioned. I can no longer climb the walls...
       objectReference: {fileID: 0}
     - target: {fileID: 7636632297727041518, guid: 34c7d6d8362cbd745b4c3a59847d0613,
         type: 3}
       propertyPath: sentences.Array.data[2]
-      value: "There are traps everywhere trying to stop us from reaching the city...\t"
+      value: There are traps everywhere between here and the Factory...
       objectReference: {fileID: 0}
     - target: {fileID: 7636632297727041518, guid: 34c7d6d8362cbd745b4c3a59847d0613,
         type: 3}
       propertyPath: sentences.Array.data[3]
-      value: My systems are shooting downn...
+      value: Systems Failing....
       objectReference: {fileID: 0}
     - target: {fileID: 7636632297727041518, guid: 34c7d6d8362cbd745b4c3a59847d0613,
         type: 3}
