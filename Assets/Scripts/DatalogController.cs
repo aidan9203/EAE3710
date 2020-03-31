@@ -27,6 +27,10 @@ public class DatalogController : MonoBehaviour
     private void Update() {
         if(triggered) {
             // Listen for 'e' presses while the game is paused
+            if(Input.GetAxis("Interact") > 0) {
+                Debug.Log("Pressed interact: " + Input.GetAxis("Interact").ToString());
+            }
+            
             if(Input.GetKeyDown(KeyCode.E)) {
                 if(currentSentenceIndex == 0) {
                     DisplayFirstSentence();
@@ -56,6 +60,13 @@ public class DatalogController : MonoBehaviour
                 }
                 Time.timeScale = 0;
             }
+        }
+        if (Input.GetKeyDown("joystick 1 button 0")) {
+            Debug.Log("X button pressed");
+        }
+
+        if(Input.GetAxis("Interact") > 0) {
+            Debug.Log("Pressed interact");
         }
     }
 
