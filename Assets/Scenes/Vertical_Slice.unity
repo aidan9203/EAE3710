@@ -31624,6 +31624,12 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7331882112990919545, guid: 873f9be9ca0090e4084fdd0a1d24f973,
+        type: 3}
+      propertyPath: camera_prefab
+      value: 
+      objectReference: {fileID: 2926893102165961244, guid: ecad9f749931fe24f9d910a5b2ca27fe,
+        type: 3}
     - target: {fileID: 8949750160294285487, guid: 873f9be9ca0090e4084fdd0a1d24f973,
         type: 3}
       propertyPath: m_LocalPosition.x

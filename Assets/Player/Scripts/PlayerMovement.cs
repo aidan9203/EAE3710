@@ -54,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
 		rb.centerOfMass = new Vector3(0, -0.5f, 0);
 		drill.SetActive(drill_enable);
 		cam = GameObject.Instantiate(camera_prefab, tf.position, Quaternion.Euler(Vector3.zero));
-		cam.GetComponent<CameraFollow>().target = this.gameObject;
+		//cam.GetComponent<CameraFollow>().target = this.gameObject;
+		cam.GetComponent<CameraControlled>().target = this.gameObject;
 		walk_animation = GetComponent<Animation>();
 		walk_sounds = GetComponents<AudioSource>();
 		checkpoint_pos = transform.position;
@@ -73,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 			gravity_change = true;
 			transform.position = checkpoint_pos - 0.1f * checkpoint_gravity;
 			transform.rotation = checkpoint_rot;
-			cam.GetComponent<CameraFollow>().ResetWaypoints();
+			//cam.GetComponent<CameraFollow>().ResetWaypoints();
 		}
 
 		//Drilling
