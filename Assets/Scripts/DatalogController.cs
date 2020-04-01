@@ -16,6 +16,7 @@ public class DatalogController : MonoBehaviour
     
     private bool triggered = false;
     private int currentSentenceIndex = 0;
+    private bool buttonHeldDown = false;
     private ParticleSystem particles;
     // Potentially to freeze the game while this is being printed
     public UnityEvent datalogTriggered;
@@ -27,17 +28,21 @@ public class DatalogController : MonoBehaviour
     private void Update() {
         if(triggered) {
             // Listen for 'e' presses while the game is paused
-            if(Input.GetAxis("Interact") > 0) {
-                Debug.Log("Pressed interact: " + Input.GetAxis("Interact").ToString());
-            }
-            
-            if(Input.GetKeyDown(KeyCode.E)) {
-                if(currentSentenceIndex == 0) {
-                    DisplayFirstSentence();
+            if(Input.GetAxisRaw("Interact") != 0) {
+                // I needed to implement my own "GetKeyDown" but for input axis.
+                // See here: https://answers.unity.com/questions/376587/how-to-treat-inputgetaxis-as-inputgetbuttondown.html
+                if (!buttonHeldDown) {
+                    buttonHeldDown = true;
+                    if (currentSentenceIndex == 0) {
+                        DisplayFirstSentence();
+                    } 
+                    else {
+                        DisplayNextSentence();
+                    }
                 }
-                else {
-                    DisplayNextSentence();
-                }
+            } 
+            else {
+                buttonHeldDown = false;
             }
         }
     }
@@ -49,24 +54,18 @@ public class DatalogController : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other) {
-        if(Input.GetKeyDown(KeyCode.E) && other.CompareTag("Player")) {
-            if(!triggered) {
+        if(Input.GetAxisRaw("Interact") != 0 && other.CompareTag("Player")) {
+            if (!triggered) {
                 // No need to display the sentence here, Update will call and handle it
                 triggered = true;
                 // Disable particle system after the player has viewed it once.
                 // The player can continue to view the message after finishing
-                if(particles != null) {
+                if (particles != null) {
                     particles.Stop();
                 }
+                Debug.Log("Disabling timescale");
                 Time.timeScale = 0;
             }
-        }
-        if (Input.GetKeyDown("joystick 1 button 0")) {
-            Debug.Log("X button pressed");
-        }
-
-        if(Input.GetAxis("Interact") > 0) {
-            Debug.Log("Pressed interact");
         }
     }
 
@@ -95,11 +94,19 @@ public class DatalogController : MonoBehaviour
         }
         else {
             // Hide UI elements and reset the state
-            Time.timeScale = 1;
             messageText.text = "";
             panelUI.SetActive(false);
             currentSentenceIndex = 0;
-            triggered = false;
+            // After changing input methods to use the controller, there was an issue with the OnTriggerStay
+            // being called immediately after resetting the timescale, and it would be called immediately and freeze the game again.
+            // To solve this, we wait half a second before allowing the message to be triggered again.
+            StartCoroutine(Reset());
+            Time.timeScale = 1;
         }
+    }
+
+    private IEnumerator Reset() {
+        yield return new WaitForSeconds(0.5f);
+        triggered = false;
     }
 }
