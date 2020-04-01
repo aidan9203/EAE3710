@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b41504e4990e68c4988a441c31b55b93
+guid: 9d254a16893c484408347f4f1febab23
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: idle
+    second: LeftTurn_LetGo
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,18 +35,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: idle
+      name: LeftTurn_LetGo
       takeName: Take 001
       internalID: 0
       firstFrame: 1
-      lastFrame: 220
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
