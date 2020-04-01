@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
 public class DatalogController : MonoBehaviour
@@ -63,7 +62,6 @@ public class DatalogController : MonoBehaviour
                 if (particles != null) {
                     particles.Stop();
                 }
-                Debug.Log("Disabling timescale");
                 Time.timeScale = 0;
             }
         }
