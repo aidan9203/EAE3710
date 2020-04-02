@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
 	public string finish_level;
 
+	public GameObject prefab_dead_player;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -68,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (!alive)
 		{
+			GameObject dead_body = GameObject.Instantiate(prefab_dead_player, transform.position, transform.rotation);
+			dead_body.GetComponent<DeadPlayer>().gravity = gravity;
 			alive = true;
 			gravity = checkpoint_gravity;
 			normal = -checkpoint_gravity;

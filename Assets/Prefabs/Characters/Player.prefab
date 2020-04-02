@@ -466,6 +466,8 @@ MonoBehaviour:
   alive: 1
   keys: []
   finish_level: Main Menu
+  prefab_dead_player: {fileID: 8630353703407493203, guid: 3eb1e093e9727cd45a017dc979df6d8e,
+    type: 3}
 --- !u!54 &314398753169390053
 Rigidbody:
   m_ObjectHideFlags: 0
