@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: af418016fc4a067459df5d088a12131d
+guid: 2ed5f5715bca0374d955397e969c728f
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: LeftTurn_Press
+    second: Hold_LeftTurn
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: LeftTurn_Press
+      name: Hold_LeftTurn
       takeName: Take 001
       internalID: 0
       firstFrame: 1

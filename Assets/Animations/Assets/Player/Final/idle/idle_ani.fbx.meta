@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: c24a8b532d7e1654eac85f0974798641
+guid: 274e234de836e1846a7592a1b0d8a217
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: LeftTurn_Hold
+    second: idle
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: LeftTurn_Hold
+      name: idle
       takeName: Take 001
       internalID: 0
       firstFrame: 1
-      lastFrame: 25
+      lastFrame: 220
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -113,7 +113,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 60
+    globalScale: 0.59999996
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
