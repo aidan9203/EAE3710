@@ -1,0 +1,19 @@
+
+***Takes 18 Frames***
+
+
+Left Leg      Right Leg
+
+x 31.567      -31.567
+
+y -15.867      15.867
+
+z -326.873     33.127
+
+
+
+Before 2 Frame Rotate Z
+
+Left Leg      Right Leg
+
+-11.676       11.676

@@ -37,11 +37,11 @@ public class Sawblade : MonoBehaviour
     }
 
 
-    public void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.gameObject.GetComponent<PlayerMovement>().alive = false;
+            other.collider.gameObject.GetComponent<PlayerMovement>().alive = false;
         }
     }
 }
