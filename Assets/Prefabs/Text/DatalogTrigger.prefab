@@ -62,9 +62,6 @@ MonoBehaviour:
   - My legs are not working properly I cant climb up walls...
   - "There are traps everywhere trying to stop us from reaching the city...\t"
   - My systems are shooting downn...
-  messageText: {fileID: 0}
-  notificationText: {fileID: 0}
-  panelUI: {fileID: 0}
   datalogTriggered:
     m_PersistentCalls:
       m_Calls: []

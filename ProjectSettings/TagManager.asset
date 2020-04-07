@@ -10,6 +10,7 @@ TagManager:
   - PlayerTread
   - FallingStalactite
   - Checkpoint
+  - Canvas
   layers:
   - Default
   - TransparentFX

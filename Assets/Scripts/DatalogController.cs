@@ -1,17 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using TMPro;
 
 public class DatalogController : MonoBehaviour
 {
     [TextArea(3, 4)]
     public string[] sentences;
-    public TextMeshProUGUI messageText;
-    public GameObject notificationText;
-    public GameObject panelUI;
+    private TextMeshProUGUI messageText;
+    private GameObject notificationText;
+    private GameObject panelUI;
     
     private bool triggered = false;
     private int currentSentenceIndex = 0;
@@ -22,6 +20,14 @@ public class DatalogController : MonoBehaviour
 
     private void Start() {
         particles = GetComponentInChildren<ParticleSystem>();
+        // Fetching our canvas elements at runtime
+        var canvasRef = GameObject.FindGameObjectWithTag("Canvas");
+        if(!canvasRef) {
+            Debug.LogError("Cannot find an appropriate canvas. Datalogs will not work without one.");
+        }
+        panelUI = canvasRef.transform.Find("Panel").gameObject;
+        notificationText = canvasRef.transform.Find("NotificationText").gameObject;
+        messageText = canvasRef.transform.Find("Panel/TextBoxContainer/TextBg/MessageText").GetComponent<TextMeshProUGUI>();
     }
 
     private void Update() {
