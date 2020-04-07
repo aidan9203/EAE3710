@@ -12,10 +12,13 @@ public class LineOfSight : MonoBehaviour {
     public float resetTime = 2.0f;
     [Range(0, 1)]
     public float timeBetweenShots = 0.5f;
+    [Range(0, 5)]
+    public float disabledLength = 2f;
     private AudioSource shotSound;
 
     private Transform parentTransform;
     private bool playerVisible;
+    private bool disabled = false;
 
     public UnityEvent playerEnteredEvent;
     public UnityEvent viewResetEvent;
@@ -53,9 +56,11 @@ public class LineOfSight : MonoBehaviour {
     }
 
     void FireProjectiles() {
-        GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
-        spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
-        shotSound.Play();
+        if (!disabled) {
+            GameObject spawnedProjectile = Instantiate(projectile, parentTransform.forward + parentTransform.position, parentTransform.rotation);
+            spawnedProjectile.GetComponent<Rigidbody>().velocity = spawnedProjectile.transform.forward * projectileSpeed;
+            shotSound.Play();
+        }  
     }
 
     IEnumerator ResetView() {
@@ -63,5 +68,20 @@ public class LineOfSight : MonoBehaviour {
         if (!playerVisible) {
             viewResetEvent?.Invoke();
         }
+    }
+
+    public void Disable() {
+        disabled = true;
+        // Do something to indicate they are disabled
+
+
+        // Reenable after the amount of time
+        StartCoroutine(Enable());
+    }
+
+    IEnumerator Enable() {
+        yield return new WaitForSeconds(disabledLength);
+
+        disabled = false;
     }
 }
