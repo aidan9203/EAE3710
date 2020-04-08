@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 		if (input_horizontal != 0 || input_vertical != 0)
 		{
 			walk_animation.Play();
-			walk_animation["Walk Cycle"].speed = rb.velocity.magnitude * 0.5f;
+			walk_animation["WalkCycle_RoughDraft"].speed = rb.velocity.magnitude * 0.5f;
 			move_dir_current = move_dir;
 			if (walk_timer > 0.3f)
 			{
