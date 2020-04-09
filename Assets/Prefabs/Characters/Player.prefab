@@ -404,10 +404,10 @@ GameObject:
   - component: {fileID: 7331882112990919545}
   - component: {fileID: 314398753169390053}
   - component: {fileID: 5986000010525693864}
-  - component: {fileID: 7783738549269055293}
   - component: {fileID: 6412173611222527754}
   - component: {fileID: 2320160567750781445}
   - component: {fileID: 7100074110285889965}
+  - component: {fileID: 1834384318057507250}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -497,23 +497,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8655128, y: 1.2587919, z: 1.4269614}
   m_Center: {x: -0.25105333, y: 0.6262841, z: 0.00508523}
---- !u!111 &7783738549269055293
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5361745924458603196}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 1827226128182048838, guid: ebabe06ab2b073c4ca73108bb7865d91,
-    type: 3}
-  m_Animations:
-  - {fileID: 1827226128182048838, guid: ebabe06ab2b073c4ca73108bb7865d91, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!82 &6412173611222527754
 AudioSource:
   m_ObjectHideFlags: 0
@@ -802,6 +785,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &1834384318057507250
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361745924458603196}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1827226128182048838, guid: 274e234de836e1846a7592a1b0d8a217,
+    type: 3}
+  m_Animations:
+  - {fileID: 1827226128182048838, guid: 274e234de836e1846a7592a1b0d8a217, type: 3}
+  - {fileID: 1827226128182048838, guid: 67fc17a4132ccb048a28935383f46906, type: 3}
+  - {fileID: 1827226128182048838, guid: 2ed5f5715bca0374d955397e969c728f, type: 3}
+  - {fileID: 1827226128182048838, guid: d964bda963409c84aaab55cc7c4909ea, type: 3}
+  - {fileID: 1827226128182048838, guid: ca1531191ecb3184995b7c7953ea61e1, type: 3}
+  - {fileID: 1827226128182048838, guid: 62e9c947d52639c48a4450c3632d01b9, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &5598626593349965230
 GameObject:
   m_ObjectHideFlags: 0

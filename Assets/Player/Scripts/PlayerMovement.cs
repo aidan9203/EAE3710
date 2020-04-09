@@ -36,9 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
 	public List<string> keys = new List<string>();
 
-	Animation walk_animation;
-	AudioSource[] walk_sounds;
-	float walk_timer = 0;
+	string animation_name = "idle";
+	Animation animations;
+	AudioSource[] sounds;
+	float sound_timer = 0;
 
 	Vector3 checkpoint_pos;
 	Quaternion checkpoint_rot;
@@ -58,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
 		cam = GameObject.Instantiate(camera_prefab, tf.position, Quaternion.Euler(Vector3.zero));
 		//cam.GetComponent<CameraFollow>().target = this.gameObject;
 		cam.GetComponent<CameraControlled>().target = this.gameObject;
-		walk_animation = GetComponent<Animation>();
-		walk_sounds = GetComponents<AudioSource>();
+		animations = GetComponent<Animation>();
+		sounds = GetComponents<AudioSource>();
 		checkpoint_pos = transform.position;
 		checkpoint_rot = transform.rotation;
 		checkpoint_gravity = Vector3.down;
@@ -122,30 +123,13 @@ public class PlayerMovement : MonoBehaviour
 		move_dir_current = move_dir_current.normalized;
 
 		Vector3 move_dir = (move_dir_forward * input_vertical + move_dir_right * input_horizontal).normalized;
-
-		//Interpolate rotation
-		walk_timer += Time.deltaTime;
 		if (input_horizontal != 0 || input_vertical != 0)
 		{
-			walk_animation.Play();
-			walk_animation["WalkCycle_RoughDraft"].speed = rb.velocity.magnitude * 0.5f;
 			move_dir_current = move_dir;
-			if (walk_timer > 0.3f)
-			{
-				//Play walk sound
-				walk_timer = 0;
-				int clip = Random.Range(0, walk_sounds.Length);
-				walk_sounds[clip].pitch = Random.Range(0.8f, 1.2f);
-				walk_sounds[clip].Play();
-			}
-		}
-		else
-		{
-			walk_animation.Stop();
 		}
 
-		//Orient the player with gravity
-		if (!gravity_change)
+			//Orient the player with gravity
+			if (!gravity_change)
 		{
 			RaycastHit c0, c1, c2, c3;
 			Physics.Raycast(corners[0].position, -tf.up, out c0, 1.0f, ~LayerMask.GetMask("Player"));
@@ -170,6 +154,32 @@ public class PlayerMovement : MonoBehaviour
 		float vel_y = speed * move_dir.y + (Mathf.Abs(rb.velocity.y) + 20 * Time.deltaTime) * gravity.y;
 		float vel_z = speed * move_dir.z + (Mathf.Abs(rb.velocity.z) + 20 * Time.deltaTime) * gravity.z;
 		rb.velocity = new Vector3(vel_x, vel_y, vel_z);
+
+
+		//Animation and sound
+		sound_timer += Time.deltaTime;
+		if (gravity_change)
+		{
+			animation_name = "Fast_+90";
+		}
+		else if (input_horizontal != 0 || input_vertical != 0)
+		{
+			animation_name = "WalkCycle";
+			animations["WalkCycle"].speed = rb.velocity.magnitude * 0.5f;
+			if (sound_timer > 0.3f)
+			{
+				//Play walk sound
+				sound_timer = 0;
+				int clip = Random.Range(0, sounds.Length);
+				sounds[clip].pitch = Random.Range(0.8f, 1.2f);
+				sounds[clip].Play();
+			}
+		}
+		else
+		{
+			animation_name = "idle";
+		}
+		animations.Play(animation_name);
 	}
 
 
