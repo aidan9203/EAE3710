@@ -15,6 +15,7 @@ public class DatalogController : MonoBehaviour
     private int currentSentenceIndex = 0;
     private bool buttonHeldDown = false;
     private ParticleSystem particles;
+    private PlayerMovement playerMovement;
     // Potentially to freeze the game while this is being printed
     public UnityEvent datalogTriggered;
 
@@ -54,6 +55,7 @@ public class DatalogController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Player")) {
+            playerMovement = other.GetComponent<PlayerMovement>();
             notificationText.SetActive(true);
         }
     }
@@ -81,6 +83,7 @@ public class DatalogController : MonoBehaviour
 
     private void DisplayFirstSentence() {
         if(sentences.Length > 0) {
+            
             panelUI.SetActive(true);
 
             messageText.text = sentences[currentSentenceIndex];
