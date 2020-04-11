@@ -70,7 +70,6 @@ public class DatalogController : MonoBehaviour
                 if (particles != null) {
                     particles.Stop();
                 }
-                Time.timeScale = 0;
             }
         }
     }
@@ -83,7 +82,7 @@ public class DatalogController : MonoBehaviour
 
     private void DisplayFirstSentence() {
         if(sentences.Length > 0) {
-            
+            playerMovement.frozen = true;
             panelUI.SetActive(true);
 
             messageText.text = sentences[currentSentenceIndex];
@@ -108,7 +107,7 @@ public class DatalogController : MonoBehaviour
             // being called immediately after resetting the timescale, and it would be called immediately and freeze the game again.
             // To solve this, we wait half a second before allowing the message to be triggered again.
             StartCoroutine(Reset());
-            Time.timeScale = 1;
+            playerMovement.frozen = false;
         }
     }
 
