@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
 	Animation animations;
 	AudioSource[] sounds;
 	float sound_timer = 0;
+	float animation_timer = 0;
 
 	Vector3 checkpoint_pos;
 	Quaternion checkpoint_rot;
@@ -66,6 +67,9 @@ public class PlayerMovement : MonoBehaviour
 		checkpoint_pos = transform.position;
 		checkpoint_rot = transform.rotation;
 		checkpoint_gravity = Vector3.down;
+
+		animations["Fast_-90"].speed = 2.0f;
+		animations["Fast_+90"].speed = 2.0f;
 	}
 
 	// Update is called once per frame
@@ -131,8 +135,8 @@ public class PlayerMovement : MonoBehaviour
 			move_dir_current = move_dir;
 		}
 
-			//Orient the player with gravity
-			if (!gravity_change)
+		//Orient the player with gravity
+		if (!gravity_change)
 		{
 			RaycastHit c0, c1, c2, c3;
 			Physics.Raycast(corners[0].position, -tf.up, out c0, 1.0f, ~LayerMask.GetMask("Player"));
@@ -148,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
 			else { normal = -gravity; }
 		}
 
-		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.LookRotation(Vector3.Cross(normal, move_dir_current), normal), 0.2f);
+		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.LookRotation(Vector3.Cross(normal, move_dir_current), normal), 0.1f);
 
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 
@@ -158,29 +162,39 @@ public class PlayerMovement : MonoBehaviour
 		float vel_z = speed * move_dir.z + (Mathf.Abs(rb.velocity.z) + 20 * Time.deltaTime) * gravity.z;
 		rb.velocity = new Vector3(vel_x, vel_y, vel_z);
 
-
 		//Animation and sound
 		sound_timer += Time.deltaTime;
-		if (gravity_change)
+		animation_timer -= Time.deltaTime;
+		if (animation_timer <= 0)
 		{
-			animation_name = "Fast_+90";
-		}
-		else if (input_horizontal != 0 || input_vertical != 0)
-		{
-			animation_name = "WalkCycle";
-			animations["WalkCycle"].speed = rb.velocity.magnitude * 0.5f;
-			if (sound_timer > 0.3f)
+			//Turning animations
+			if ((transform.forward - move_dir_current).magnitude < 1.2f)
 			{
-				//Play walk sound
-				sound_timer = 0;
-				int clip = Random.Range(0, sounds.Length);
-				sounds[clip].pitch = Random.Range(0.8f, 1.2f);
-				sounds[clip].Play();
+				animation_name = "Hold_RightTurn";
 			}
-		}
-		else
-		{
-			animation_name = "idle";
+			else if ((transform.forward - move_dir_current).magnitude > 1.6f)
+			{
+				animation_name = "Hold_LeftTurn";
+			}
+			//Walking animation
+			else if (input_horizontal != 0 || input_vertical != 0)
+			{
+				animation_name = "WalkCycle";
+				animations["WalkCycle"].speed = rb.velocity.magnitude * 0.5f;
+				if (sound_timer > 0.3f)
+				{
+					//Play walk sound
+					sound_timer = 0;
+					int clip = Random.Range(0, sounds.Length);
+					sounds[clip].pitch = Random.Range(0.8f, 1.2f);
+					sounds[clip].Play();
+				}
+			}
+			//Idle animation
+			else
+			{
+				animation_name = "idle";
+			}
 		}
 		animations.Play(animation_name);
 	}
@@ -193,6 +207,12 @@ public class PlayerMovement : MonoBehaviour
 	{
 		g.Normalize();
 		if (gravity.Equals(g)) { return; }
+
+		//Gravity change animation
+		if (Vector3.SignedAngle(transform.forward, g, transform.right) > 0) { animation_name = "Fast_+90"; }
+		else { animation_name = "Fast_-90"; }
+		animation_timer = 0.7f;
+
 		gravity = g;
 		normal = -g;
 		gravity_change = true;

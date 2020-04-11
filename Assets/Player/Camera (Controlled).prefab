@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed_move: 0.1
-  speed_rotate: 0.25
+  speed_rotate: 0.5
   sensitivity: 300
   distance: 5
   upward_offset: 1.5

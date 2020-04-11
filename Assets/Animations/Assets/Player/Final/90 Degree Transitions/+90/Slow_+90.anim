@@ -1809,8 +1809,8 @@ AnimationClip:
     path: body/leftFrotnLeg
   m_FloatCurves: []
   m_PPtrCurves: []
-  m_SampleRate: 24
-  m_WrapMode: 0
+  m_SampleRate: 100
+  m_WrapMode: 1
   m_Bounds:
     m_Center: {x: -0.3280933, y: 1.5164155, z: -0.0011637211}
     m_Extent: {x: 1.0890596, y: 1.5441815, z: 1.0869787}
