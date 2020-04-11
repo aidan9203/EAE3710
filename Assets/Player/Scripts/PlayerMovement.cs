@@ -49,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
 	public GameObject prefab_dead_player;
 
+	public bool frozen;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -108,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
 		if (Input.GetKey(KeyCode.D)) { input_horizontal += 1; }
 		if (Input.GetKey(KeyCode.A)) { input_horizontal -= 1; }
 
+		if (frozen) { input_horizontal = 0; input_vertical = 0; }
 		input_vertical = Mathf.Clamp(input_vertical, -1, 1);
 		input_horizontal = Mathf.Clamp(input_horizontal, -1, 1);
 
