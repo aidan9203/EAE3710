@@ -37,7 +37,10 @@ public class GravityChange : MonoBehaviour
             }
             else if (collision.collider.tag == "Breakable")
             {
-                collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                var breakable = collision.gameObject.GetComponent<Breakable>();
+                if(breakable != null) {
+                    collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                }
             }
         }
     }
@@ -50,7 +53,11 @@ public class GravityChange : MonoBehaviour
         }
         else if (collider.tag == "Breakable")
         {
-            gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            // Changed this because the breakable wall was intersecting with another wall that was tagged here
+            var breakable = gameObject.GetComponent<Breakable>();
+            if (breakable != null) {
+                breakable.ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            }
         }
     }
 }
