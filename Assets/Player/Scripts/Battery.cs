@@ -13,7 +13,8 @@ public class Battery : MonoBehaviour
     public Sprite battery0, battery1, battery2, battery3, battery4;
 
     Image battery;
-    float charge = 1;
+    public static float charge = 1;
+    public static Dictionary<string, float> drains = new Dictionary<string, float>();
 
     // Start is called before the first frame update
     void Start()
@@ -33,14 +34,33 @@ public class Battery : MonoBehaviour
 
         if (Input.GetAxisRaw("Flashlight") > 0)
         {
-            if (charge > 0) { flashlight.SetActive(true); }
+            if (!drains.ContainsKey("flashlight")) { drains.Add("flashlight", 1); }
+            if (charge > 0) { flashlight.SetActive(true);}
             else { flashlight.SetActive(false); }
-            charge = Mathf.Max(0, charge - discharge * Time.deltaTime);
         }
         else
         {
+            if (drains.ContainsKey("flashlight")) { drains.Remove("flashlight"); }
             flashlight.SetActive(false);
+        }
+
+        if (drains.Keys.Count > 0)
+        {
+            charge = Mathf.Max(0, charge - GetDrainRate() * discharge * Time.deltaTime);
+        }
+        else
+        {
             charge = Mathf.Min(1, charge + recharge * Time.deltaTime);
         }
+    }
+
+    private float GetDrainRate()
+    {
+        float rate = 0;
+        foreach(float r in drains.Values)
+        {
+            rate += r;
+        }
+        return rate;
     }
 }

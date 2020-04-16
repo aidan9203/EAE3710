@@ -95,11 +95,21 @@ public class PlayerMovement : MonoBehaviour
 			drill.transform.localEulerAngles += drill_speed * Time.deltaTime;
 			if (Input.GetAxisRaw("Attack") > 0)
 			{
-				drill_speed = Vector3.Lerp(drill_speed, new Vector3(0, 0, 300), 0.1f);
-				drill.tag = "Drill";
+				if (!Battery.drains.ContainsKey("drill")) { Battery.drains.Add("drill", 2); }
+				if (Battery.charge > 0)
+				{
+					drill_speed = Vector3.Lerp(drill_speed, new Vector3(0, 0, 300), 0.1f);
+					drill.tag = "Drill";
+				}
+				else
+				{
+					drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 0.1f);
+					drill.tag = "Untagged";
+				}
 			}
 			else
 			{
+				if (Battery.drains.ContainsKey("drill")) { Battery.drains.Remove("drill"); }
 				drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 0.1f);
 				drill.tag = "Untagged";
 			}

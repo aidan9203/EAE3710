@@ -224,6 +224,9 @@ MonoBehaviour:
   drill_enable: 0
   alive: 1
   keys: []
+  finish_level: 
+  prefab_dead_player: {fileID: 0}
+  frozen: 0
 --- !u!65 &5506973248573209749
 BoxCollider:
   m_ObjectHideFlags: 0
