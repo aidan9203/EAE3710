@@ -15,12 +15,12 @@ public class GravityChange : MonoBehaviour
 
     public bool trigger_only;
 
-    float timer;
+    static float timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        timer = 5;
+        timer = 5.0f;
     }
 
     // Update is called once per frame
@@ -31,23 +31,19 @@ public class GravityChange : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Gravity Change");
         if (!trigger_only)
         {
-            if (timer >= 5)
+            if (collision.collider.tag == "Player" && timer >= 5.0f)
             {
-                if (collision.collider.tag == "Player")
+                timer = 0;
+                collision.collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            }
+            else if (collision.collider.tag == "Breakable")
+            {
+                var breakable = collision.gameObject.GetComponent<Breakable>();
+                if (breakable != null)
                 {
-                    collision.collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
-                    timer = 0;
-                }
-                else if (collision.collider.tag == "Breakable")
-                {
-                    var breakable = collision.gameObject.GetComponent<Breakable>();
-                    if (breakable != null)
-                    {
-                        collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
-                    }
+                    collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
                 }
             }
         }
@@ -55,9 +51,9 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (timer >= 5)
+        if (trigger_only)
         {
-            if (collider.tag == "Player")
+            if (collider.tag == "Player" && timer >= 5.0f)
             {
                 collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
                 timer = 0;
