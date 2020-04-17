@@ -15,31 +15,39 @@ public class GravityChange : MonoBehaviour
 
     public bool trigger_only;
 
+    float timer;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        timer = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        timer += Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Gravity Change");
         if (!trigger_only)
         {
-            if (collision.collider.tag == "Player")
+            if (timer >= 5)
             {
-                collision.collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
-            }
-            else if (collision.collider.tag == "Breakable")
-            {
-                var breakable = collision.gameObject.GetComponent<Breakable>();
-                if(breakable != null) {
-                    collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                if (collision.collider.tag == "Player")
+                {
+                    collision.collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                    timer = 0;
+                }
+                else if (collision.collider.tag == "Breakable")
+                {
+                    var breakable = collision.gameObject.GetComponent<Breakable>();
+                    if (breakable != null)
+                    {
+                        collision.gameObject.GetComponent<Breakable>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                    }
                 }
             }
         }
@@ -47,16 +55,21 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (timer >= 5)
         {
-            collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
-        }
-        else if (collider.tag == "Breakable")
-        {
-            // Changed this because the breakable wall was intersecting with another wall that was tagged here
-            var breakable = gameObject.GetComponent<Breakable>();
-            if (breakable != null) {
-                breakable.ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+            if (collider.tag == "Player")
+            {
+                collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                timer = 0;
+            }
+            else if (collider.tag == "Breakable")
+            {
+                // Changed this because the breakable wall was intersecting with another wall that was tagged here
+                var breakable = gameObject.GetComponent<Breakable>();
+                if (breakable != null)
+                {
+                    breakable.ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
+                }
             }
         }
     }
