@@ -74,7 +74,6 @@ public class GeneratorController : MonoBehaviour
             // Change material
             var oldMaterials = glow.materials;
             oldMaterials[0] = glowMaterial;
-            Debug.Log(oldMaterials);
             glow.materials = oldMaterials;
 
             // Display message alerting player that the door is now openable
