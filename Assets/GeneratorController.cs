@@ -35,9 +35,13 @@ public class GeneratorController : MonoBehaviour
     }
 
     void OnCollisionStay(Collision collision) {
-        if (Input.GetAxisRaw("Interact") != 0 && collision.gameObject.CompareTag("Player")) {
-            Debug.Log("Door should now be activated");
-            // Trigger door activation
+        // Prevents the generator from being used multiple times
+        if(!triggered) {
+            if (Input.GetAxisRaw("Interact") != 0 && collision.gameObject.CompareTag("Player") && enemyCount == 0) {
+                Debug.Log("Door should now be activated");
+                triggered = true;
+                // TODO: Trigger door activation
+            }
         }
     }
 
