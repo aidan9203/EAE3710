@@ -25861,6 +25861,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7331882112990919545, guid: 873f9be9ca0090e4084fdd0a1d24f973,
+        type: 3}
+      propertyPath: finish_level
+      value: Level_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331882112990919545, guid: 873f9be9ca0090e4084fdd0a1d24f973,
+        type: 3}
+      propertyPath: frozen
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8020094184797617002, guid: 873f9be9ca0090e4084fdd0a1d24f973,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

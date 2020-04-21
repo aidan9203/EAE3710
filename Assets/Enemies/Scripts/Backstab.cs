@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
+
 
 public class Backstab : MonoBehaviour
 {
-    
     [Range(0, 1)]
     public float backstabSensitivity = 0.8f;
     public GameObject spawnOnDeath;
@@ -12,6 +11,8 @@ public class Backstab : MonoBehaviour
     private Transform playerTransform;
     private GameObject parentReference;
     private bool deathItemSpawned = false;
+
+    public UnityEvent deathEvent;
 
     void Start() {
         parentReference = transform.parent.gameObject;
@@ -25,6 +26,7 @@ public class Backstab : MonoBehaviour
             if (collider.CompareTag("Drill"))
             {
                 SpawnDeathItem();
+                deathEvent?.Invoke();
                 Destroy(parentReference);
             }
             else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -39,6 +41,7 @@ public class Backstab : MonoBehaviour
 		if (collider.tag == "Drill" && IsBehindEnemy())
 		{
             SpawnDeathItem();
+            deathEvent?.Invoke();
 			Destroy(parentReference);
 		}
 	}
@@ -55,6 +58,7 @@ public class Backstab : MonoBehaviour
     {
         if (collision.collider.tag == "FallingStalactite")
         {
+            deathEvent?.Invoke();
             Destroy(parentReference);
         }
     }
