@@ -14,7 +14,7 @@ public class Breakable : MonoBehaviour
 	public string destroy_tag;
 
     Rigidbody rb;
-    Vector3 gravity = Vector3.zero;
+    Vector3 gravity = Vector3.down;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,7 @@ public class Breakable : MonoBehaviour
     {
         if (collider.tag == destroy_tag) {
             rb.isKinematic = false;
-            gravity = collider.GetComponent<PlayerMovement>().GetGravity();
+            //gravity = collider.GetComponent<PlayerMovement>().GetGravity();
         }
     }
 
@@ -41,13 +41,13 @@ public class Breakable : MonoBehaviour
 		if (collision.collider.tag == destroy_tag)
 		{
 			rb.isKinematic = false;
-			gravity = collision.collider.GetComponent<PlayerMovement>().GetGravity();
+			//gravity = collision.collider.GetComponent<PlayerMovement>().GetGravity();
 		}
 	}
 
 	public void ChangeGravity(Vector3 g)
     {
-        g.Normalize();
-        gravity = g;
+        //g.Normalize();
+        //gravity = g;
     }
 }

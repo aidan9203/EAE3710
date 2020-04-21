@@ -22,11 +22,11 @@ public class DeadPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        body.velocity += 10 * gravity * Time.deltaTime;
-        head.velocity += 10 * gravity * Time.deltaTime;
-        leg_a.velocity += 10 * gravity * Time.deltaTime;
-        leg_b.velocity += 10 * gravity * Time.deltaTime;
-        leg_c.velocity += 10 * gravity * Time.deltaTime;
-        leg_d.velocity += 10 * gravity * Time.deltaTime;
+        body.velocity += 10 * Vector3.down * Time.deltaTime;
+        head.velocity += 10 * Vector3.down * Time.deltaTime;
+        leg_a.velocity += 10 * Vector3.down * Time.deltaTime;
+        leg_b.velocity += 10 * Vector3.down * Time.deltaTime;
+        leg_c.velocity += 10 * Vector3.down * Time.deltaTime;
+        leg_d.velocity += 10 * Vector3.down * Time.deltaTime;
     }
 }
