@@ -7,10 +7,15 @@ public class GeneratorController : MonoBehaviour
 {
     public List<GameObject> enemies;
     public Transform door;
+    [TextArea]
+    public string textToShow;
+    [Range(1, 5)]
+    public float timeToFreeze = 2f;
 
     private TextMeshProUGUI messageText;
     private GameObject notificationText;
     private GameObject panelUI;
+    private PlayerMovement playerMovement;
 
     private int enemyCount;
     private bool triggered;
@@ -25,8 +30,13 @@ public class GeneratorController : MonoBehaviour
             Debug.LogWarning("The generator hasn't been assigned any enemies to monitor. This is likely because of incorrect setup.");
         }
 
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
         var canvasRef = GameObject.FindGameObjectWithTag("Canvas");
+        panelUI = canvasRef.transform.Find("Panel").gameObject;
         notificationText = canvasRef.transform.Find("NotificationText").gameObject;
+        messageText = canvasRef.transform.Find("Panel/TextBoxContainer/TextBg/MessageText").GetComponent<TextMeshProUGUI>();
+        
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -58,7 +68,21 @@ public class GeneratorController : MonoBehaviour
         enemyCount--;
 
         if(enemyCount == 0) {
-
+            // Display message alerting player that the door is now openable
+            playerMovement.frozen = true;
+            panelUI.SetActive(true);
+            messageText.text = textToShow;
+            // Auto dismiss the text after a set time
+            StartCoroutine(dismiss());
         }
+    }
+
+    private IEnumerator<WaitForSeconds> dismiss() {
+        yield return new WaitForSeconds(timeToFreeze);
+
+        messageText.text = "";
+        panelUI.SetActive(false);
+
+        playerMovement.frozen = false;
     }
 }
