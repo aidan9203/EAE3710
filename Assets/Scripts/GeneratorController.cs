@@ -12,6 +12,9 @@ public class GeneratorController : MonoBehaviour
     [Range(1, 5)]
     public float timeToFreeze = 2f;
 
+    public Material glowMaterial;
+    public MeshRenderer glow;
+
     private TextMeshProUGUI messageText;
     private GameObject notificationText;
     private GameObject panelUI;
@@ -68,6 +71,12 @@ public class GeneratorController : MonoBehaviour
         enemyCount--;
 
         if(enemyCount == 0) {
+            // Change material
+            var oldMaterials = glow.materials;
+            oldMaterials[0] = glowMaterial;
+            Debug.Log(oldMaterials);
+            glow.materials = oldMaterials;
+
             // Display message alerting player that the door is now openable
             playerMovement.frozen = true;
             panelUI.SetActive(true);
