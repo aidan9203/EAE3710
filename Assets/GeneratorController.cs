@@ -1,13 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GeneratorController : MonoBehaviour
 {
     public List<GameObject> enemies;
-    private GameObject notificationText;
+    public Transform door;
 
+    private TextMeshProUGUI messageText;
+    private GameObject notificationText;
+    private GameObject panelUI;
 
     private int enemyCount;
     private bool triggered;
@@ -28,7 +31,7 @@ public class GeneratorController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.CompareTag("Player")) {
-            if (enemyCount == 0) {
+            if (enemyCount == 0 && !triggered) {
                 notificationText.SetActive(true);
             }
         }
@@ -38,9 +41,9 @@ public class GeneratorController : MonoBehaviour
         // Prevents the generator from being used multiple times
         if(!triggered) {
             if (Input.GetAxisRaw("Interact") != 0 && collision.gameObject.CompareTag("Player") && enemyCount == 0) {
-                Debug.Log("Door should now be activated");
                 triggered = true;
-                // TODO: Trigger door activation
+                LeanTween.moveLocalY(door.gameObject, 7.25f, 0.5f);
+                notificationText.SetActive(false);
             }
         }
     }
@@ -53,5 +56,9 @@ public class GeneratorController : MonoBehaviour
 
     public void decrementKillCount() {
         enemyCount--;
+
+        if(enemyCount == 0) {
+
+        }
     }
 }
