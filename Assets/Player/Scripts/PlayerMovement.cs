@@ -100,11 +100,13 @@ public class PlayerMovement : MonoBehaviour
 				{
 					drill_speed = Vector3.Lerp(drill_speed, new Vector3(0, 0, 300), 0.1f);
 					drill.tag = "Drill";
+					sounds[3].Play();
 				}
 				else
 				{
 					drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 0.1f);
 					drill.tag = "Untagged";
+					sounds[3].Stop();
 				}
 			}
 			else
@@ -112,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
 				if (Battery.drains.ContainsKey("drill")) { Battery.drains.Remove("drill"); }
 				drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 0.1f);
 				drill.tag = "Untagged";
+				sounds[3].Stop();
 			}
 		}
 
@@ -195,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
 				{
 					//Play walk sound
 					sound_timer = 0;
-					int clip = Random.Range(0, sounds.Length);
+					int clip = Random.Range(0, 3);
 					sounds[clip].pitch = Random.Range(0.8f, 1.2f);
 					sounds[clip].Play();
 				}
