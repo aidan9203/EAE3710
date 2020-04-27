@@ -70,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
 
 		animations["Fast_-90"].speed = 2.0f;
 		animations["Fast_+90"].speed = 2.0f;
+
+		Cursor.visible = false;
 	}
 
 	// Update is called once per frame
