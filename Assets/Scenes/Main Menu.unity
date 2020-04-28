@@ -1175,7 +1175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d12dae638d2e19546ae3de8e757b3ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  loadingText: {fileID: 1963964999}
   dimmer: {fileID: 1275036366}
 --- !u!4 &1902035775
 Transform:
