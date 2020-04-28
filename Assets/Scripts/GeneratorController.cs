@@ -52,7 +52,7 @@ public class GeneratorController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.CompareTag("Player")) {
-            if (enemyCount == 0 && !triggered) {
+            if (enemyCount < 1 && !triggered) {
                 notificationText.SetActive(true);
             }
         }
@@ -61,7 +61,7 @@ public class GeneratorController : MonoBehaviour
     void OnCollisionStay(Collision collision) {
         // Prevents the generator from being used multiple times
         if(!triggered) {
-            if (Input.GetAxisRaw("Interact") != 0 && collision.gameObject.CompareTag("Player") && enemyCount == 0) {
+            if (Input.GetAxisRaw("Interact") != 0 && collision.gameObject.CompareTag("Player") && enemyCount < 1) {
                 triggered = true;
 
                 player.frozen = true;
