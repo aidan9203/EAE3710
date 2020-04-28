@@ -15,6 +15,12 @@ public class GeneratorController : MonoBehaviour
     public Material glowMaterial;
     public MeshRenderer glow;
 
+    public Camera doorCam;
+    private Camera playerCam;
+
+    [SerializeField] 
+    private PlayerMovement player;
+
     private TextMeshProUGUI messageText;
     private GameObject notificationText;
     private GameObject panelUI;
@@ -28,6 +34,7 @@ public class GeneratorController : MonoBehaviour
     void Start()
     {
         enemyCount = enemies.Count;
+        playerCam = player.camera_prefab.GetComponent<Camera>();
 
         if(enemyCount == 0) {
             Debug.LogWarning("The generator hasn't been assigned any enemies to monitor. This is likely because of incorrect setup.");
@@ -39,7 +46,8 @@ public class GeneratorController : MonoBehaviour
         panelUI = canvasRef.transform.Find("Panel").gameObject;
         notificationText = canvasRef.transform.Find("NotificationText").gameObject;
         messageText = canvasRef.transform.Find("Panel/TextBoxContainer/TextBg/MessageText").GetComponent<TextMeshProUGUI>();
-        
+
+        doorCam.enabled = false;
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -55,7 +63,16 @@ public class GeneratorController : MonoBehaviour
         if(!triggered) {
             if (Input.GetAxisRaw("Interact") != 0 && collision.gameObject.CompareTag("Player") && enemyCount == 0) {
                 triggered = true;
-                LeanTween.moveLocalY(door.gameObject, 7.25f, 0.5f);
+
+                player.frozen = true;
+                playerCam.enabled = false;
+                doorCam.enabled = true;
+                LeanTween.moveLocalY(door.gameObject, 7.25f, 1.0f)
+                    .setOnComplete(() => {
+                        playerCam.enabled = true;
+                        doorCam.enabled = false;
+                        player.frozen = false;
+                    });
                 notificationText.SetActive(false);
             }
         }
