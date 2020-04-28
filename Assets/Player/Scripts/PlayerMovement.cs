@@ -46,8 +46,6 @@ public class PlayerMovement : MonoBehaviour
 	Quaternion checkpoint_rot;
 	Vector3 checkpoint_gravity;
 
-	public string finish_level;
-
 	public GameObject prefab_dead_player;
 
 	public bool frozen;
@@ -246,10 +244,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			drill_enable = true;
 			GameObject.Destroy(collision.gameObject);
-		}
-		else if (collision.gameObject.tag == "Finish")
-		{
-			SceneManager.LoadScene(finish_level);
 		}
 	}
 

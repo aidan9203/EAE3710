@@ -15,17 +15,14 @@ public class MainMenuManager : MonoBehaviour
     }
     
     public void StartClicked() {
-        Debug.Log("Clicked");
-        var operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        float startAlpha = dimmer.alpha;
         // Fade screen
         LeanTween.value(gameObject,
             (val) => dimmer.alpha = val,
-            startAlpha, 1, 0.5f)
+            0, 1, 0.5f)
             .setOnComplete(() => {
+                var operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
                 StartCoroutine(LoadingScreen(operation));
-            }
-        );
+            });
     }
 
     public void ControlsClicked() {
@@ -54,13 +51,14 @@ public class MainMenuManager : MonoBehaviour
         int dotCount = 0;
         loadingText.gameObject.SetActive(true);
         while(!op.isDone) {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
             string txt = loadingText.text;
             if(dotCount == 3) {
-                loadingText.text = txt.Substring(0, txt.Length - 3);
+                loadingText.text = "Loading";
             }
             else {
                 loadingText.text += ".";
+                dotCount++;
             }
         }
     }

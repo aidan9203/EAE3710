@@ -19,7 +19,7 @@ public class GeneratorController : MonoBehaviour
     private Camera playerCam;
 
     [SerializeField] 
-    private PlayerMovement player;
+    private PlayerMovement player = null;
 
     private TextMeshProUGUI messageText;
     private GameObject notificationText;
