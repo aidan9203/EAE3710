@@ -7,7 +7,6 @@ public class MainMenuManager : MonoBehaviour
         Cursor.visible = true;    
     }
     public void StartClicked() {
-        Debug.Log("Loading next scene");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

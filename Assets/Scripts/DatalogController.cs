@@ -82,6 +82,7 @@ public class DatalogController : MonoBehaviour
 
     private void DisplayFirstSentence() {
         if(sentences.Length > 0) {
+            notificationText.SetActive(false);
             playerMovement.frozen = true;
             panelUI.SetActive(true);
 
@@ -103,6 +104,7 @@ public class DatalogController : MonoBehaviour
             messageText.text = "";
             panelUI.SetActive(false);
             currentSentenceIndex = 0;
+            notificationText.SetActive(true);
             // After changing input methods to use the controller, there was an issue with the OnTriggerStay
             // being called immediately after resetting the timescale, and it would be called immediately and freeze the game again.
             // To solve this, we wait half a second before allowing the message to be triggered again.
