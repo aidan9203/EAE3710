@@ -520,6 +520,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3981154880557429350, guid: 93f37282a7df9584aa832d9a2dc08593,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3981154881019282715, guid: 93f37282a7df9584aa832d9a2dc08593,
         type: 3}
       propertyPath: m_Name
@@ -660,6 +665,31 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7259104480486061899, guid: 93f37282a7df9584aa832d9a2dc08593,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259104480486061899, guid: 93f37282a7df9584aa832d9a2dc08593,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259104480486061899, guid: 93f37282a7df9584aa832d9a2dc08593,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259104480486061899, guid: 93f37282a7df9584aa832d9a2dc08593,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259104480486061899, guid: 93f37282a7df9584aa832d9a2dc08593,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.3647059
+      objectReference: {fileID: 0}
     - target: {fileID: 7858117480149335578, guid: 93f37282a7df9584aa832d9a2dc08593,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -753,6 +783,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DatalogTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636632297727041518, guid: 34c7d6d8362cbd745b4c3a59847d0613,
+        type: 3}
+      propertyPath: sentences.Array.size
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34c7d6d8362cbd745b4c3a59847d0613, type: 3}
