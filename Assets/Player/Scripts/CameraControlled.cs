@@ -38,7 +38,7 @@ public class CameraControlled : MonoBehaviour
             dist = hit.distance - 0.1f;
         }
 
-        transform.position = Vector3.Lerp(transform.position, target.transform.position + target.transform.up * upward_offset + direction * dist, speed_move);
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(((target.transform.position + target.transform.up * upward_offset) - transform.position).normalized, target.transform.up), speed_rotate);
+        transform.position = Vector3.Lerp(transform.position, target.transform.position + target.transform.up * upward_offset + direction * dist, speed_move * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(((target.transform.position + target.transform.up * upward_offset) - transform.position).normalized, target.transform.up), speed_rotate * Time.deltaTime);
     }
 }

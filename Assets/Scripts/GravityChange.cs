@@ -15,12 +15,12 @@ public class GravityChange : MonoBehaviour
 
     public bool trigger_only;
 
-    static float timer;
+    float timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        timer = 5.0f;
+        timer = 3.0f;
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class GravityChange : MonoBehaviour
     {
         if (!trigger_only)
         {
-            if (collision.collider.tag == "Player" && timer >= 5.0f)
+            if (collision.collider.tag == "Player" && timer >= 3.0f)
             {
                 timer = 0;
                 collision.collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
@@ -53,7 +53,7 @@ public class GravityChange : MonoBehaviour
     {
         if (trigger_only)
         {
-            if (collider.tag == "Player" && timer >= 5.0f)
+            if (collider.tag == "Player" && timer >= 3.0f)
             {
                 collider.GetComponent<PlayerMovement>().ChangeGravity(new Vector3(gravity_x, gravity_y, gravity_z));
                 timer = 0;

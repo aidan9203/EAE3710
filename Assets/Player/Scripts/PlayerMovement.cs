@@ -97,13 +97,13 @@ public class PlayerMovement : MonoBehaviour
 				if (!Battery.drains.ContainsKey("drill")) { Battery.drains.Add("drill", 2); }
 				if (Battery.charge > 0)
 				{
-					drill_speed = Vector3.Lerp(drill_speed, new Vector3(0, 0, 300), 0.1f);
+					drill_speed = Vector3.Lerp(drill_speed, new Vector3(0, 0, 300), 10 * Time.deltaTime);
 					drill.tag = "Drill";
 					sounds[3].Play();
 				}
 				else
 				{
-					drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 0.1f);
+					drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 10 * Time.deltaTime);
 					drill.tag = "Untagged";
 					sounds[3].Stop();
 				}
@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
 			else
 			{
 				if (Battery.drains.ContainsKey("drill")) { Battery.drains.Remove("drill"); }
-				drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 0.1f);
+				drill_speed = Vector3.Lerp(drill_speed, Vector3.zero, 10 * Time.deltaTime);
 				drill.tag = "Untagged";
 				sounds[3].Stop();
 			}
