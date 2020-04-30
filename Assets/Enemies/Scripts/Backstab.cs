@@ -23,13 +23,7 @@ public class Backstab : MonoBehaviour
 	{
         if(IsBehindEnemy())
         {
-            if (collider.CompareTag("Drill"))
-            {
-                SpawnDeathItem();
-                deathEvent?.Invoke();
-                Destroy(parentReference);
-            }
-            else if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 parentReference.GetComponent<SentryController>().ChangeSkullVisiblity(true);
             }
@@ -38,7 +32,7 @@ public class Backstab : MonoBehaviour
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.tag == "Drill" && IsBehindEnemy())
+		if (collider.CompareTag("Drill") && IsBehindEnemy())
 		{
             SpawnDeathItem();
             deathEvent?.Invoke();
@@ -56,7 +50,7 @@ public class Backstab : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "FallingStalactite")
+        if (collision.collider.CompareTag("FallingStalactite"))
         {
             deathEvent?.Invoke();
             Destroy(parentReference);
