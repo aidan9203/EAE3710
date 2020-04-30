@@ -10,8 +10,12 @@ public class MainMenuManager : MonoBehaviour
 
     void Start() {
         Cursor.visible = true;
-        loadingText.gameObject.SetActive(false);
-        dimmer.alpha = 0;
+        // Despite being called Main menu manager, this is also used on the Controls page.
+        // And the controls page lacks the loading text/dimmer
+        if(SceneManager.GetActiveScene().name == "Main Menu") {
+            loadingText.gameObject.SetActive(false);
+            dimmer.alpha = 0;
+        }
     }
     
     public void StartClicked() {
@@ -31,16 +35,20 @@ public class MainMenuManager : MonoBehaviour
     }
     
     public void QuitClicked() {
-        // Note: This will not close the game in the editor, but will once the game is built
-        Application.Quit();
-        // This closes the editor if it is going
-        #if UNITY_EDITOR
-    
-        if (UnityEditor.EditorApplication.isPlaying) {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        #endif
-        
+        LeanTween.value(gameObject,
+            (val) => dimmer.alpha = val,
+            0, 1, 0.5f)
+            .setOnComplete(() => {
+                // Note: This will not close the game in the editor, but will once the game is built
+                Application.Quit();
+                // This closes the editor if it is going
+                #if UNITY_EDITOR
+
+                if (UnityEditor.EditorApplication.isPlaying) {
+                    UnityEditor.EditorApplication.isPlaying = false;
+                }
+                #endif
+            });
     }
 
     public void BackClicked() {
