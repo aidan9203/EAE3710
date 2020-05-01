@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed_move: 10
+  speed_move: 5
   speed_rotate: 50
   sensitivity: 200
   distance: 5

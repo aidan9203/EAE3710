@@ -164,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
 			else { normal = -gravity; }
 		}
 
-		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.LookRotation(Vector3.Cross(normal, move_dir_current), normal), 0.1f);
+		tf.rotation = Quaternion.Lerp(tf.rotation, Quaternion.LookRotation(Vector3.Cross(normal, move_dir_current), normal), 8 * Time.deltaTime);
 
 		if (Mathf.Abs((tf.up + gravity).magnitude) < 0.2f) { gravity_change = false; }
 
