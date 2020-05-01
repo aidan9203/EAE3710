@@ -136,7 +136,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a4c6358b9c3ebf647818112a79319c10, type: 2}
+  - {fileID: 2100000, guid: 5e0452fe089b6784bb57858031086ca4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -526,7 +526,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a4c6358b9c3ebf647818112a79319c10, type: 2}
+  - {fileID: 2100000, guid: a9a88883a3330ab4ab7dede1cc4b5c61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1614,7 +1614,7 @@ GameObject:
   - component: {fileID: 4721754618497509337}
   - component: {fileID: 4721754618497509343}
   m_Layer: 0
-  m_Name: Turret Enemy
+  m_Name: Turret
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1627,7 +1627,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4721754618497509318}
-  m_LocalRotation: {x: -0, y: -0.92860425, z: -0, w: 0.3710718}
+  m_LocalRotation: {x: 0, y: -0.9286057, z: 0, w: 0.37106803}
   m_LocalPosition: {x: 1.37, y: 1.5, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2652,6 +2652,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backstabSensitivity: 0.8
   spawnOnDeath: {fileID: 0}
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9103862056430152085
 GameObject:
   m_ObjectHideFlags: 0
