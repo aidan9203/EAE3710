@@ -59,7 +59,3 @@ sysinfo.txt
 crashlytics-build.properties
 
 #Lightmap data
-
-
-Assets/Scenes/Level_2/LightingData.asset
-Assets/Scenes/Vertical_Slice/LightingData.asset
